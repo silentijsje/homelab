@@ -1,0 +1,12 @@
+- name: set timezone
+  shell: timedatectl set-timezone Europe/Amsterdam
+
+- name: Make sure timesyncd is stopped
+  systemd:
+    name: systemd-timesyncd.service
+    state: stopped
+    
+- name: Make sure timesyncd is started
+  systemd:
+    name: systemd-timesyncd.service
+    state: started

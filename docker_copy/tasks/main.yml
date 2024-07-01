@@ -1,0 +1,8 @@
+- name: Updating OS
+  include_tasks: update_os.yml
+
+- name: copy file content to the machine
+  include_tasks: files.yml
+
+- name: create traefik acme.json file
+  include_tasks: traefik_acme.yml

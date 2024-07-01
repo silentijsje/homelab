@@ -1,0 +1,8 @@
+---
+- name: copy
+  ansible.builtin.copy:
+    src: "../files/{{ file_path }}/"
+    dest: "/mnt/docker/"
+    owner: gamer0308
+    group: gamer0308
+    mode: '770'

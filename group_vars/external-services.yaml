@@ -1,0 +1,134 @@
+---
+# ironicbadger.docker_compose_generator
+appdata_path: /mnt/docker
+container_config_path: /config
+container_data_path: /data
+docker_compose_generator_output_path: "/mnt/ansible"
+
+# global vars
+global_env_vars:
+  - "PUID={{ docker_compose_generator_uid }}"
+  - "PGID={{ docker_compose_generator_gid }}"
+  - "TZ={{ ntp_timezone }}"
+
+containers:
+###
+  - service_name: portainer_agent
+    active: true
+    image: portainer/agent:2.19.5
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    restart: always
+###
+  - service_name: homer
+    active: true
+    image: "b4bz/homer:latest"
+    container_name: "homer"
+    environment:
+      INIT_ASSETS: "1"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homer.rule=Host(`homer.example.com`)"
+      - "traefik.http.routers.homer.entrypoints=https"
+      - "traefik.http.routers.homer.tls=true"
+      - "traefik.http.services.homer.loadbalancer.server.port=8085"
+    volumes:
+      - "{{appdata_path}}/homer/site/:/www/assets"
+    ports:
+      - 8085:8080
+    networks:
+      - web
+    include_global_env_vars: true
+    restart: unless-stopped
+###
+  - service_name: traefik
+    active: true
+    image: traefik:v3.1
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - web
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      CF_DNS_API_TOKEN: "{{CF_DNS_API_TOKEN}}"
+      TRAEFIK_DASHBOARD_CREDENTIALS: "{{TRAEFIK_DASHBOARD_CREDENTIALS}}"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{appdata_path}}/traefik/data/traefik.yml:/traefik.yml:ro"
+      - "{{appdata_path}}/traefik/data/acme.json:/acme.json"
+      - "{{appdata_path}}/traefik/configs/:/configs/:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.silentijsje.com`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users={{TRAEFIK_DASHBOARD_CREDENTIALS}}"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.silentijsje.com`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=silentijsje.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.silentijsje.com"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+###
+  - service_name: authelia
+    active: true
+    image: authelia/authelia:latest
+    volumes:
+      - "{{appdata_path}}/authelia/config/:/config/"
+    environment:
+      - "AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET={{AUTHELIA_JWT_SECRET}}"
+      - "AUTHELIA_STORAGE_ENCRYPTION_KEY={{AUTHELIA_ENCRYPTION_KEY}}"
+      - "AUTHELIA_NOTIFIER_SMTP_USERNAME={{AUTHELIA_SMTP_USERNAME}}"
+      - "AUTHELIA_NOTIFIER_SMTP_PASSWORD={{AUTHELIA_SMTP_PASSWORD}}"
+    networks:
+      - web
+      - authelia
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.authelia.rule=Host(`authelia.silentijsje.com`)"
+      - "traefik.http.routers.authelia.tls.certresolver=cloudflare"
+      - "traefik.http.routers.authelia.entrypoints=https"
+      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/authz/forward-auth?authelia_url=https://authelia.silentijsje.com'
+      - 'traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true'
+      - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+    expose:
+      - 9091
+    restart: unless-stopped
+###
+  - service_name: redis
+    active: true
+    image: redis:alpine
+    container_name: auth-redis
+    volumes:
+      - "{{appdata_path}}/authelia/redis:/data"
+    networks:
+      - authelia
+    expose:
+      - 6379
+    restart: unless-stopped
+###
+  - service_name: watchtower
+    active: true
+    image: containrrr/watchtower:latest
+    environment:
+      WATCHTOWER_SCHEDULE: "0 0 4 * * *"
+      # WATCHTOWER_RUN_ONCE: true
+      WATCHTOWER_DEBUG: false
+      WATCHTOWER_CLEANUP: true
+      WATCHTOWER_INCLUDE_RESTARTING: true
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: always
+    include_global_env_vars: true

@@ -1,0 +1,5 @@
+ansible/.vault_password
+*.env
+.vault_pass
+cf_api_token.txt
+galaxy_roles

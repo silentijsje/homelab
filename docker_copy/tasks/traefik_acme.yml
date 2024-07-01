@@ -1,0 +1,14 @@
+---
+- name: Create directory for acme.json
+  ansible.builtin.file:
+    path: "{{services_path}}/traefik/data"
+    state: directory
+    mode: '0755'
+
+- name: acme.json
+  ansible.builtin.file:
+    path: "{{services_path}}/traefik/data/acme.json"
+    owner: gamer0308
+    group: gamer0308
+    mode: '600'
+    state: touch
