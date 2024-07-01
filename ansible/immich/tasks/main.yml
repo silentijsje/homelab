@@ -1,0 +1,20 @@
+- name: services directory
+  ansible.builtin.file:
+    path: "{{services_path}}/"
+    state: directory
+    mode: '770'
+
+- name: copy
+  ansible.builtin.copy:
+    src: immich
+    dest: "{{services_path}}/"
+    owner: gamer0308
+    group: gamer0308
+    mode: '770'
+
+- name: create docker network 'web'
+  community.general.docker_network:
+    name: web
+
+- name: run immich
+  ansible.builtin.shell: "cd {{services_path}}/immich && docker compose down && docker compose up -d"

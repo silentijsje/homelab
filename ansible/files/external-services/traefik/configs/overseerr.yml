@@ -1,0 +1,21 @@
+http:
+  routers:
+    overseerr:
+      rule: Host(`overseerr.silentijsje.com`)
+      tls: 
+        certresolver:
+          cloudflare
+      service: overseerr
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    overseerr:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.86:5055

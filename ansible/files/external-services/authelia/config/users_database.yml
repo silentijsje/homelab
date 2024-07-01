@@ -1,0 +1,14 @@
+###############################################################
+#                         Users Database                      #
+###############################################################
+
+# This file can be used if you do not have an LDAP set up.
+
+users:
+  silentijsje:
+    displayname: "Stanley Renfrew"
+    password: "$argon2id$v=19$m=65536,t=3,p=4$RPPdBmwPQ2uHTsyOaE0pvA$6uo11b8YNLukVVa16DcfNvVFIq4s1L4YRYLGRGC5jIk"
+    email: authelia@silentijsje.com
+    groups:
+      - admins
+      - dev

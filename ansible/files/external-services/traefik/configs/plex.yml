@@ -1,0 +1,18 @@
+http:
+  routers:
+    plex:
+      rule: Host(`plex.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: plex
+      entryPoints:
+        - https
+      middlewares:
+        - cloudflare-whitelist
+
+  services:
+    plex:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.80:32400

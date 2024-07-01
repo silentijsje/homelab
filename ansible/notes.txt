@@ -1,0 +1,2 @@
+Commands:
+ansible-galaxy install -p ~/github/homelab/ansible/galaxy_roles -r requirements.yml

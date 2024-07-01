@@ -1,0 +1,168 @@
+---
+###############################################################################
+#                           Authelia Configuration                            #
+###############################################################################
+
+theme: dark
+default_redirection_url: https://homer.silentijsje.com/
+
+identity_validation:
+  ## Reset Password flow. Adjusts how the reset password flow operates.
+  reset_password:
+    ## Maximum allowed time before the JWT is generated and when the user uses it in the duration common syntax.
+    jwt_lifespan: '5 minutes'
+
+    ## The algorithm used for the Reset Password JWT.
+    jwt_algorithm: 'HS256'
+
+server:
+  address: 'tcp://:9091/'
+
+log:
+  level: info
+# This secret can also be set using the env variables AUTHELIA_JWT_SECRET_FILE
+
+totp:
+  issuer: authelia.com
+
+webauthn:
+  # The interaction timeout for WebAuthn dialogues in the duration common syntax.
+  timeout: '60 seconds'
+  # The display name the browser should show the user for when using WebAuthn to login/register.
+  display_name: 'Authelia'
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+
+password_policy:
+
+  ## The standard policy allows you to tune individual settings manually.
+  standard:
+    enabled: false
+
+    ## Require a minimum length for passwords.
+    min_length: 8
+
+    ## Require a maximum length for passwords.
+    max_length: 0
+
+    ## Require uppercase characters.
+    require_uppercase: true
+
+    ## Require lowercase characters.
+    require_lowercase: true
+
+    ## Require numeric characters.
+    require_number: true
+
+    ## Require special characters.
+    require_special: true
+
+  ## zxcvbn is a well known and used password strength algorithm. It does not have tunable settings.
+  zxcvbn:
+    enabled: false
+
+    ## Configures the minimum score allowed.
+    min_score: 3
+
+access_control:
+  default_policy: deny
+
+  networks:
+    - name: 'internal'
+      networks:
+        - '10.0.0.1/24'
+        - '10.0.10.1/24'
+        - '10.0.20.1/24'
+    # - name: 'VPN'
+    #   networks: '10.9.0.0/16'
+
+  rules:
+    ## bypass rule
+    - domain: 
+        - "authelia.silentijsje.com"
+      policy: bypass
+    ## bypass api / triggers
+    - domain: "*.silentijsje.com"
+      resources:
+        - "^/api([/?].*)?$"
+        - "^/identity.*$"
+        - "^/triggers.*$"
+        - "^/meshagents.*$"
+        - "^/meshsettings.*$"
+        - "^/agent.*$"
+        - "^/control.*$"
+        - "^/meshrelay.*$"
+        - "^/wl.*$"
+      policy: bypass
+    ## two factor login
+    - domain: 
+        - "portainer.silentijsje.com"
+        - "pihole.silentijsje.com"
+      subject: 
+        - "group:admins"
+      policy: two_factor
+      networks:
+        - 'internal'
+    ## one factor login
+    - domain: 
+        - "octo.silentijsje.com"
+      policy: one_factor
+    ## bypass login
+    - domain: 
+        - "overseerr.silentijsje.com"
+        - "hassio.silentijsje.com"
+        - "homer.silentijsje.com"
+      policy: bypass
+    ## one factor login - catch all 
+    - domain: '*.silentijsje.com'
+      subject: 
+        - "group:admins"
+      policy: two_factor
+
+session:
+  secret: 'unsecure_session_secret'
+  # name: 'authelia_session'
+  domain: 'silentijsje.com'
+  expiration: '2h'
+  inactivity: '5m'
+  remember_me: '1M'
+  # cookies:
+  #   - domain: 'silentijsje.com'
+  #     authelia_url: 'https://authelia.silentijsje.com'
+  #     default_redirection_url: 'https://homer.silentijsje.com'
+
+  redis:
+    host: redis
+    port: 6379
+    # This secret can also be set using the env variables AUTHELIA_SESSION_REDIS_PASSWORD_FILE
+    # password: authelia
+
+regulation:
+  # The number of failed login attempts before user is banned. Set it to 0 to disable regulation.
+  max_retries: 3
+
+  # The time range during which the user can attempt login before being banned in the duration common syntax. The user
+  # is banned if the authentication failed 'max_retries' times in a 'find_time' seconds window.
+  find_time: '2 minutes'
+
+  # The length of time before a banned user can login again in the duration common syntax.
+  ban_time: '5 minutes'
+
+storage:
+  local:
+    path: /config/db.sqlite3
+
+notifier:
+  disable_startup_check: false
+  smtp:
+    address: 'email-smtp.eu-central-1.amazonaws.com:587'
+    sender: auth@silentijsje.com
+    identifier: hoi
+    subject: "[Authelia] {title}"
+    startup_check_address: test@authelia.com
+    tls:
+      skip_verify: true
+      minimum_version: TLS1.2
+...

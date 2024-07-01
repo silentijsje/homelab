@@ -1,0 +1,21 @@
+http:
+  routers:
+    jellyfin:
+      rule: Host(`jellyfin.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: jellyfin
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    jellyfin:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.92:8096

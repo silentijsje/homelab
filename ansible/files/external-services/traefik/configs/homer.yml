@@ -1,0 +1,21 @@
+http:
+  routers:
+    homer:
+      rule: Host(`homer.silentijsje.com`)
+      tls: 
+        certresolver:
+          cloudflare
+      service: homer
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    homer:
+      loadBalancer:
+        servers:
+          - url: http://10.0.32.10:8085/

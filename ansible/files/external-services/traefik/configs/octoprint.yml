@@ -1,0 +1,22 @@
+http:
+  routers:
+    octoprint:
+      rule: Host(`octo.silentijsje.com`)
+      tls: 
+        certresolver:
+          cloudflare
+      service: octoprint
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    octoprint:
+      loadBalancer:
+        servers:
+          - url: http://10.0.20.125:80
+        passHostHeader: true
