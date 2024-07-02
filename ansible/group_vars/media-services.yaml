@@ -3,6 +3,7 @@
 appdata_path: /mnt/docker
 container_media_path: /mnt/media
 docker_compose_generator_output_path: "/mnt/ansible"
+sabnzbd_incomplete_downloads_path: /mnt/storage/incomplete
 
 # global vars
 global_env_vars:
@@ -12,6 +13,18 @@ global_env_vars:
   - "TZ={{ ntp_timezone }}"
 
 containers:
+  - service_name: sabnzbd
+    active: true
+    image: lscr.io/linuxserver/sabnzbd:latest
+    include_global_env_vars: true
+    volumes:
+      - "{{ appdata_path }}/sabnzbd:/config"
+      - "{{ container_media_path }}:/data"
+      - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete" #optional
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+###
   - service_name: prowlarr
     active: true
     image: "lscr.io/linuxserver/prowlarr:latest"
