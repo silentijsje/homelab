@@ -52,11 +52,12 @@ containers:
     active: true
     image: "lscr.io/linuxserver/sonarr:latest"
     container_name: "animarr"
+    # network_mode: service:tailscale
+    ports:
+      - 8988:8989
     volumes:
       - "{{ appdata_path }}/animarr:/config"
       - "{{ container_media_path }}:/data"
-    ports:
-      - 8988:8989
     include_global_env_vars: true
     restart: unless-stopped
 ###
@@ -95,3 +96,21 @@ containers:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     restart: always
     include_global_env_vars: true
+###
+  - service_name: tailscale
+    active: true
+    image: tailscale/tailscale
+    hostname: testing
+    environment:
+      - "TS_AUTHKEY={{ TAILSCALE_OAUTH_CONTAINER }}?ephemeral=false"
+      - "TS_EXTRA_ARGS=--advertise-tags=tag:container --reset"
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - "{{ appdata_path }}//tailscale/state:/var/lib/tailscale"
+      - "{{ appdata_path }}//tailscale/config:/config"
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped

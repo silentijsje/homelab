@@ -10,15 +10,15 @@
 #     - bootstrap
 #     - geerlingguy.docker
 
-# - hosts: media-services
-#   become: yes
-#   vars_files:
-#     - vars/vault.yml
-#   roles:
-#     - role: docker_copy
-#     - role: IronicBadger.docker_compose_generator
-#       tags: compose
-#     - role: docker_run
+- hosts: media-services
+  become: yes
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: docker_copy
+    - role: IronicBadger.docker_compose_generator
+      tags: compose
+    - role: docker_run
 
 # - hosts: external-services
 #   become: yes
@@ -29,14 +29,14 @@
 #     - role: IronicBadger.docker_compose_generator
 #       tags: compose
 #     - role: docker_run
-    # - immich
+#     # - immich
 
-- hosts: general-services
-  become: yes
-  vars_files:
-    - vars/vault.yml
-  roles:
-    - role: docker_copy
-    - role: IronicBadger.docker_compose_generator
-      tags: compose
-    - role: docker_run
+# - hosts: general-services
+#   become: yes
+#   vars_files:
+#     - vars/vault.yml
+#   roles:
+#     - role: docker_copy
+#     - role: IronicBadger.docker_compose_generator
+#       tags: compose
+#     - role: docker_run
