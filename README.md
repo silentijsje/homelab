@@ -9,5 +9,5 @@ git config --global user.email github@silentijsje.com
 cron jobs
 ```
 # 30 3 * * * /home/gamer0308/github/homelab_pub/gitCodeBak.sh
-* * * * * /home/gamer0308/github/homelab_pub/scripts/fetchgit.sh
+* * * * * ~/github/homelab_pub/scripts/fetchgit.sh
 ```
