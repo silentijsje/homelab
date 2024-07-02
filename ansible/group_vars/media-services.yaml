@@ -25,12 +25,12 @@ containers:
       - 8080:8080
     restart: unless-stopped
 ###
-  - service_name: overseerr
+  - service_name: jellyseerr
     active: true
-    image: lscr.io/linuxserver/overseerr:latest
+    image: fallenbagel/jellyseerr:latest
     include_global_env_vars: true
     volumes:
-      - "{{ appdata_path }}/overseerr:/config"
+      - "{{ appdata_path }}/jellyseerr:/app/config"
     ports:
       - 5055:5055
     restart: unless-stopped
