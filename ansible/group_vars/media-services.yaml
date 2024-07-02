@@ -23,6 +23,17 @@ containers:
       - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete" #optional
     ports:
       - 8080:8080
+      - 8081:7777
+    restart: unless-stopped
+###
+  - service_name: overseerr
+    active: true
+    image: lscr.io/linuxserver/overseerr:latest
+    include_global_env_vars: true
+    volumes:
+      - "{{ appdata_path }}/overseerr:/config"
+    ports:
+      - 5055:5055
     restart: unless-stopped
 ###
   - service_name: prowlarr
