@@ -20,23 +20,23 @@
       tags: compose
     - role: docker_run
 
-# - hosts: external-services
-#   become: yes
-#   vars_files:
-#     - vars/vault.yml
-#   roles:
-#     - role: docker_copy
-#     - role: IronicBadger.docker_compose_generator
-#       tags: compose
-#     - role: docker_run
-#     # - immich
+- hosts: external-services
+  become: yes
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: docker_copy
+    - role: IronicBadger.docker_compose_generator
+      tags: compose
+    - role: docker_run
+    # - immich
 
-# - hosts: general-services
-#   become: yes
-#   vars_files:
-#     - vars/vault.yml
-#   roles:
-#     - role: docker_copy
-#     - role: IronicBadger.docker_compose_generator
-#       tags: compose
-#     - role: docker_run
+- hosts: general-services
+  become: yes
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: docker_copy
+    - role: IronicBadger.docker_compose_generator
+      tags: compose
+    - role: docker_run
