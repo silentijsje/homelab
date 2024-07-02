@@ -2,7 +2,6 @@
 # ironicbadger.docker_compose_generator
 appdata_path: /mnt/docker
 container_config_path: /config
-container_data_path: /data
 docker_compose_generator_output_path: "/mnt/ansible"
 
 # global vars
