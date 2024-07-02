@@ -23,7 +23,6 @@ containers:
       - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete" #optional
     ports:
       - 8080:8080
-      - 8081:7777
     restart: unless-stopped
 ###
   - service_name: overseerr
