@@ -118,7 +118,9 @@ containers:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     restart: always
-    include_global_env_vars: true  - service_name: traefik_local
+    include_global_env_vars: true  
+###
+  - service_name: traefik_local
     active: true
     image: traefik:v3.1
     restart: unless-stopped
@@ -154,7 +156,6 @@ containers:
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.silentijsje.com"
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.silentijsje.com"
       - "traefik.http.routers.traefik-secure.service=api@internal"
-###
 ###
   - service_name: tailscale
     active: true
