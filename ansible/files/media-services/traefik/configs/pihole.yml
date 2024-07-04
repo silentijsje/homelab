@@ -1,0 +1,21 @@
+http:
+  #region routers 
+  routers:
+    pihole:
+      entryPoints:
+        - https
+      rule: Host(`pihole.local.silentijsje.com`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - local-ip-whitelist
+      tls: {}
+      service: pihole
+
+#region services
+  services:
+    pihole:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.50:80/
+        passHostHeader: true

@@ -23,7 +23,7 @@ containers:
     restart: always
 ###
   - service_name: traefik_local
-    active: true
+    active: false
     image: traefik:v3.1
     restart: unless-stopped
     security_opt:

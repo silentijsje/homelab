@@ -1,0 +1,21 @@
+http:
+  #region routers 
+  routers:
+    portainer:
+      entryPoints:
+        - https
+      rule: Host(`portainer.local.silentijsje.com`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - local-ip-whitelist
+      tls: {}
+      service: portainer
+
+#region services
+  services:
+    portainer:
+      loadBalancer:
+        servers:
+          - url: https://10.0.10.60:9443
+        passHostHeader: true
