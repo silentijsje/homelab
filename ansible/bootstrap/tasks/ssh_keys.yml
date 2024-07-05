@@ -3,7 +3,7 @@
   ansible.posix.authorized_key:
     user: gamer0308
     state: present
-    key: "{{ lookup('file', '/home/gamer0308/github/homelab_pub/ssh_keys.pub') }Z"
+    key: "{{ lookup('file', '/home/gamer0308/github/homelab_pub/ssh_keys.pub') }}"
     exclusive: true
 
 # - name: Set authorized keys taken from github
