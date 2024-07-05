@@ -24,7 +24,6 @@ containers:
 ###
   - service_name: immich_server
     active: true
-    container_name: immich_server
     image: "ghcr.io/immich-app/immich-server:{{IMMICH_VERSION:-release}}"
     extends:
       file: hwaccel.transcoding.yml
@@ -42,7 +41,6 @@ containers:
 ###
   - service_name: immich_machine_learning
     active: true
-    container_name: immich_machine_learning
     # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
     # Example tag: {{IMMICH_VERSION:-release}-cuda
     image: "ghcr.io/immich-app/immich-machine-learning:{{IMMICH_VERSION:-release}}"
@@ -57,7 +55,6 @@ containers:
 ###
   - service_name: immich_redis
     active: true
-    container_name: immich_redis
     image: docker.io/redis:6.2-alpine@sha256:d6c2911ac51b289db208767581a5d154544f2b2fe4914ea5056443f62dc6e900
     healthcheck:
       test: redis-cli ping || exit 1
@@ -65,7 +62,6 @@ containers:
 ###
   - service_name: immich_postgres
     active: true
-    container_name: immich_postgres
     image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
     environment:
       POSTGRES_PASSWORD: "{{DB_PASSWORD}}"
@@ -73,7 +69,7 @@ containers:
       POSTGRES_DB: "{{DB_DATABASE_NAME}}"
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
-      - {{DB_DATA_LOCATION}:/var/lib/postgresql/data
+      - "{{DB_DATA_LOCATION}}:/var/lib/postgresql/data"
     healthcheck:
       test: pg_isready --dbname='{{DB_DATABASE_NAME}}' || exit 1; Chksum="$$(psql --dbname='{{DB_DATABASE_NAME}}' --username='{{DB_USERNAME}}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
       interval: 5m
@@ -84,20 +80,20 @@ containers:
 ###
   - service_name: immich_db_dumper
     active: true
-    container_name: immich_db_dumper
     image: prodrigestivill/postgres-backup-local:14
     env_file:
       - .env
     environment:
       POSTGRES_HOST: database
       POSTGRES_CLUSTER: 'TRUE'
-      POSTGRES_USER: {{DB_USERNAME}
-      POSTGRES_PASSWORD: {{DB_PASSWORD}
-      POSTGRES_DB: {{DB_DATABASE_NAME}
+      POSTGRES_USER: "{{DB_USERNAME}}"
+      POSTGRES_PASSWORD: "{{DB_PASSWORD}}"
+      POSTGRES_DB: "{{DB_DATABASE_NAME}}"
       SCHEDULE: "@daily"
       POSTGRES_EXTRA_OPTS: '--clean --if-exists'
       BACKUP_DIR: /db_dumps
     volumes:
-      - {{BACKUP_LOCATION}:/db_dumps
+      - "{{BACKUP_LOCATION}}:/db_dumps"
     depends_on:
       - database
+    restart: always
