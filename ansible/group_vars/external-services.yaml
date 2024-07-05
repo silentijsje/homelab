@@ -43,6 +43,21 @@ containers:
     include_global_env_vars: true
     restart: unless-stopped
 ###
+  - service_name: syncthing
+    active: true
+    image: lscr.io/linuxserver/syncthing:latest
+    hostname: syncthing
+    include_global_env_vars: true
+    volumes:
+      - /mnt/docker/syncthing:/config
+      - /mnt/media:/data
+    ports:
+      - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    restart: unless-stopped
+###
   - service_name: traefik
     active: true
     image: traefik:v3.1
