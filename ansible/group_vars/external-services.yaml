@@ -30,7 +30,7 @@ containers:
       INIT_ASSETS: "1"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`homer.example.com`)"
+      - "traefik.http.routers.homer.rule=Host(`homer.silentijsje.com`)"
       - "traefik.http.routers.homer.entrypoints=https"
       - "traefik.http.routers.homer.tls=true"
       - "traefik.http.services.homer.loadbalancer.server.port=8085"
@@ -51,6 +51,12 @@ containers:
     volumes:
       - /mnt/docker/syncthing:/config
       - /mnt/media:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homer.rule=Host(`syncthing.silentijsje.com`)"
+      - "traefik.http.routers.homer.entrypoints=https"
+      - "traefik.http.routers.homer.tls=true"
+      - "traefik.http.services.homer.loadbalancer.server.port=8384"
     ports:
       - 8384:8384
       - 22000:22000/tcp
