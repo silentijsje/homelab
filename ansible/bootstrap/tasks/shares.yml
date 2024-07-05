@@ -15,10 +15,10 @@
     fstype: cifs
     state: mounted
 
-# - name: Mount proxmox ssd_storage volume
-#   ansible.posix.mount:
-#     src: "//{{prox_ip}}/ssd_storage"
-#     path: /mnt/storage
-#     opts: "{{smb_options}}"
-#     fstype: cifs
-#     state: mounted
+- name: Mount proxmox ssd_storage volume
+  ansible.posix.mount:
+    src: "//{{prox_ip}}/ssd_storage"
+    path: /mnt/storage
+    opts: "{{smb_options}}"
+    fstype: cifs
+    state: mounted
