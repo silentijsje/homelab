@@ -15,6 +15,10 @@
     fstype: cifs
     state: mounted
 
+- name: Do not count this as a failure
+  ansible.builtin.command: /bin/false
+  ignore_errors: true
+
 - name: Mount proxmox ssd_storage volume
   ansible.posix.mount:
     src: "//{{prox_ip}}/ssd_storage"
