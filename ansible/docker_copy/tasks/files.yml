@@ -1,4 +1,10 @@
 ---
+- name: Delete content & directory
+  ansible.builtin.file:
+    state: absent
+    path: "/mnt/docker/traefik/configs"
+
+
 - name: copy
   ansible.builtin.copy:
     src: "../files/{{ file_path }}/"
@@ -6,3 +12,8 @@
     owner: gamer0308
     group: gamer0308
     mode: '770'
+
+# - name: Synchronization of src on the control machine to dest on the remote hosts
+#   ansible.posix.synchronize:
+#     src: "../files/{{ file_path }}/traefik/configs"
+#     dest: "/mnt/docker/traefik/"

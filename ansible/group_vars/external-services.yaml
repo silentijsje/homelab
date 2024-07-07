@@ -33,13 +33,11 @@ containers:
       - "traefik.http.routers.homer.rule=Host(`homer.silentijsje.com`)"
       - "traefik.http.routers.homer.entrypoints=https"
       - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=8085"
+      - "traefik.http.services.homer.loadbalancer.server.port=8080"
     volumes:
       - "{{appdata_path}}/homer/site/:/www/assets"
     ports:
       - 8085:8080
-    networks:
-      - web
     include_global_env_vars: true
     restart: unless-stopped
 ###
@@ -57,6 +55,7 @@ containers:
       - "traefik.http.routers.syncthing.entrypoints=https"
       - "traefik.http.routers.syncthing.tls=true"
       - "traefik.http.services.syncthing.loadbalancer.server.port=8384"
+      - "traefik.http.routers.syncthing.middlewares=authelia"
     ports:
       - 8384:8384
       - 22000:22000/tcp
@@ -111,9 +110,6 @@ containers:
       - "AUTHELIA_STORAGE_ENCRYPTION_KEY={{AUTHELIA_ENCRYPTION_KEY}}"
       - "AUTHELIA_NOTIFIER_SMTP_USERNAME={{AUTHELIA_SMTP_USERNAME}}"
       - "AUTHELIA_NOTIFIER_SMTP_PASSWORD={{AUTHELIA_SMTP_PASSWORD}}"
-    networks:
-      - web
-      - authelia
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
@@ -133,8 +129,6 @@ containers:
     container_name: auth-redis
     volumes:
       - "{{appdata_path}}/authelia/redis:/data"
-    networks:
-      - authelia
     expose:
       - 6379
     restart: unless-stopped
