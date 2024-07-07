@@ -11,3 +11,5 @@ cron jobs
 # 30 3 * * * /home/gamer0308/github/homelab_pub/gitCodeBak.sh
 * * * * * ~/github/homelab_pub/scripts/fetchgit.sh
 ```
+
+ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519 -C stanley-PC-WSL -q
