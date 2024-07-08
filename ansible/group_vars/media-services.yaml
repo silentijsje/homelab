@@ -110,11 +110,11 @@ containers:
     active: true
     image: containrrr/watchtower:latest
     environment:
-      WATCHTOWER_SCHEDULE: "0 0 4 * * *"
+      - "WATCHTOWER_SCHEDULE=0 0 4 * * *"
       # WATCHTOWER_RUN_ONCE: true
-      WATCHTOWER_DEBUG: false
-      WATCHTOWER_CLEANUP: true
-      WATCHTOWER_INCLUDE_RESTARTING: true
+      - "WATCHTOWER_DEBUG=false"
+      - "WATCHTOWER_CLEANUP=true"
+      - "WATCHTOWER_INCLUDE_RESTARTING=true"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     restart: always
@@ -132,8 +132,8 @@ containers:
       - 80:80
       - 443:443
     environment:
-      CF_DNS_API_TOKEN: "{{CF_DNS_API_TOKEN}}"
-      TRAEFIK_DASHBOARD_CREDENTIALS: "{{TRAEFIK_DASHBOARD_CREDENTIALS}}"
+      - "CF_DNS_API_TOKEN={{CF_DNS_API_TOKEN}}"
+      - "TRAEFIK_DASHBOARD_CREDENTIALS={{TRAEFIK_DASHBOARD_CREDENTIALS}}"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -164,8 +164,8 @@ containers:
     environment:
       - "TS_AUTHKEY={{ TAILSCALE_OAUTH_CONTAINER }}?ephemeral=false"
       - "TS_EXTRA_ARGS=--advertise-tags=tag:container --reset"
-      - TS_STATE_DIR=/var/lib/tailscale
-      - TS_USERSPACE=false
+      - "TS_STATE_DIR=/var/lib/tailscale"
+      - "TS_USERSPACE=false"
     volumes:
       - "{{ appdata_path }}//tailscale/state:/var/lib/tailscale"
       - "{{ appdata_path }}//tailscale/config:/config"
