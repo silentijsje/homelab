@@ -27,7 +27,7 @@ containers:
     image: "b4bz/homer:latest"
     container_name: "homer"
     environment:
-      INIT_ASSETS: "1"
+      - "INIT_ASSETS=1"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homer.rule=Host(`homer.silentijsje.com`)"
@@ -75,10 +75,10 @@ containers:
       - 80:80
       - 443:443
     environment:
-      - CF_DNS_API_TOKEN="{{CF_DNS_API_TOKEN}}"
-      - TRAEFIK_DASHBOARD_CREDENTIALS="{{TRAEFIK_DASHBOARD_CREDENTIALS}}"
-      # - CF_API_EMAIL="{{ CLOUDFLARE_EMAIL }}"
-      # - CF_API_KEY="{{ CF_API_KEY }}"
+      # - "CF_DNS_API_TOKEN={{CF_DNS_API_TOKEN}}"
+      - "TRAEFIK_DASHBOARD_CREDENTIALS={{TRAEFIK_DASHBOARD_CREDENTIALS}}"
+      # - "CF_API_EMAIL={{ CLOUDFLARE_EMAIL }}"
+      - "CF_API_KEY={{ CF_API_KEY }}"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -139,11 +139,11 @@ containers:
     active: true
     image: containrrr/watchtower:latest
     environment:
-      WATCHTOWER_SCHEDULE: "0 0 4 * * *"
+      - "WATCHTOWER_SCHEDULE=0 0 4 * * *"
       # WATCHTOWER_RUN_ONCE: true
-      WATCHTOWER_DEBUG: false
-      WATCHTOWER_CLEANUP: true
-      WATCHTOWER_INCLUDE_RESTARTING: true
+      - "WATCHTOWER_DEBUG=false"
+      - "WATCHTOWER_CLEANUP=true"
+      - "WATCHTOWER_INCLUDE_RESTARTING=true"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     restart: always
