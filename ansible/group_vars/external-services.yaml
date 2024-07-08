@@ -79,6 +79,8 @@ containers:
       TRAEFIK_DASHBOARD_CREDENTIALS: "{{TRAEFIK_DASHBOARD_CREDENTIALS}}"
       CF_API_EMAIL: "{{ CLOUDFLARE_EMAIL }}"
       CF_API_KEY: "{{ CF_API_KEY }}"
+    command:
+      - "--log.level=debug"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
