@@ -20,7 +20,7 @@ providers:
   file:
     directory: /configs/
 certificatesResolvers:
-  cloudflare:
+  cloudflared:
     acme:
       email: cloudflare@silentijsje.com
       storage: acme.json

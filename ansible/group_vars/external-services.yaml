@@ -95,7 +95,7 @@ containers:
       - "traefik.http.routers.traefik-secure.rule=Host(`traefik.silentijsje.com`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
-      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflared"
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=silentijsje.com"
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.silentijsje.com"
       - "traefik.http.routers.traefik-secure.service=api@internal"
