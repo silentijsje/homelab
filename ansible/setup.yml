@@ -7,6 +7,7 @@
   become: yes
   vars_files:
     - vars/vault.yml
+    - vars/smb_vars.yml
   roles:
     - role: bootstrap
 #     - geerlingguy.docker
@@ -38,7 +39,6 @@
   vars_files:
     - vars/vault.yml
     - vars/general-services.yml
-    - vars/smb_vars.yml
   roles:
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
