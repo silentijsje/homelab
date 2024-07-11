@@ -1,7 +1,7 @@
 ---
 - name: Ensure usergroups exist
   group:
-    name: "{{item}}"
+    name: "{{item.name}}"
     state: present
   with_items:
     "{{usergroups}}"
