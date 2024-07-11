@@ -1,0 +1,34 @@
+---
+- name: Create CIFS credentials file
+  copy:
+    content: |
+      username={{CIFS_Username}}
+      password={{CIFS_Password}}
+    dest: "{{CIFS_credential_location}}"
+    mode: '0600'
+
+# - name: Mount media volume
+#   ansible.posix.mount:
+#     src: "//{{nas_ip}}/media"
+#     path: /mnt/media
+#     opts: "{{smb_options}}"
+#     fstype: cifs
+#     state: mounted
+
+# - name: Mount backup volume
+#   ansible.posix.mount:
+#     src: "//{{nas_ip}}/backup"
+#     path: /mnt/backup
+#     opts: "{{smb_options}}"
+#     fstype: cifs
+#     state: mounted
+
+- name: Mount proxmox ssd_storage volume
+  ansible.posix.mount:
+    src: "//{{item.name}}/{{item.name}}"
+    path: /mnt/storage
+    opts: "{{smb_options}}"
+    fstype: cifs
+    state: mounted
+  with_items:
+    "{{shared_folders}}"

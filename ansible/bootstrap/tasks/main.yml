@@ -1,12 +1,6 @@
 - name: Updating OS
   include_tasks: update_os.yml
 
-- name: Creating cifs credentials file
-  include_tasks: cifs_credentials.yml
-
-- name: Creating and mounting shares
-  include_tasks: shares.yml  
-
 - name: Updating timezone
   include_tasks: timezone.yml
 

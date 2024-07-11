@@ -1,37 +1,37 @@
-- hosts: 
-    - code02
-    - general-services
-    - external-services
-    - media-services
-  become: yes
-  vars_files:
-    - vars/vault.yml
-  roles:
-#     - geerlingguy.docker
+# - hosts: 
+#     - code02
+#     - general-services
+#     - external-services
+#     - media-services
+#   become: yes
+#   vars_files:
+#     - vars/vault.yml
+#   roles:
+# #     - geerlingguy.docker
 
-- hosts: media-services
-  become: yes
-  vars_files:
-    - vars/vault.yml
-    - vars/media-services.yml
-  roles:
-    - role: bootstrap
-    - role: docker_copy
-    - role: IronicBadger.docker_compose_generator
-      tags: compose
-    - role: docker_run
+# - hosts: media-services
+#   become: yes
+#   vars_files:
+#     - vars/vault.yml
+#     - vars/media-services.yml
+#   roles:
+#     - role: bootstrap
+#     - role: docker_copy
+#     - role: IronicBadger.docker_compose_generator
+#       tags: compose
+#     - role: docker_run
 
-- hosts: external-services
-  become: yes
-  vars_files:
-    - vars/vault.yml
-    - vars/external-services.yml
-  roles:
-    - role: bootstrap
-    - role: docker_copy
-    - role: IronicBadger.docker_compose_generator
-      tags: compose
-    - role: docker_run
+# - hosts: external-services
+#   become: yes
+#   vars_files:
+#     - vars/vault.yml
+#     - vars/external-services.yml
+#   roles:
+#     - role: bootstrap
+#     - role: docker_copy
+#     - role: IronicBadger.docker_compose_generator
+#       tags: compose
+#     - role: docker_run
 
 - hosts: general-services
   become: yes
@@ -39,32 +39,33 @@
     - vars/vault.yml
     - vars/general-services.yml
   roles:
-    - role: bootstrap
-    - role: docker_copy
-    - role: IronicBadger.docker_compose_generator
-      tags: compose
-    - role: docker_run
+  - role: bootstrap
+  - import_tasks: storage-tasks/mountShares.yml
+#     - role: docker_copy
+#     - role: IronicBadger.docker_compose_generator
+#       tags: compose
+#     - role: docker_run
 
-- hosts: storage
-  name: "Setting up the home server"
-  become: yes
-  become_user: root
-  vars_files:
-  - vars/vault.yml
-  - vars/smb_vars.yml
-  handlers:
-  - name: restart smbd
-    ansible.builtin.service:
-      name: smbd
-      state: restarted
-  tasks:
-  - name: Install generic needed packages
-    apt:
-      name:
-      - software-properties-common
-      - dkms
-      state: latest
-      cache_valid_time: 3600
-  - import_tasks: storage-tasks/setupZFStask.yml
-  - import_tasks: storage-tasks/setupUsersTask.yml
-  - import_tasks: storage-tasks/setupSambaTask.yml
+# - hosts: storage
+#   name: "Setting up the home server"
+#   become: yes
+#   become_user: root
+#   vars_files:
+#   - vars/vault.yml
+#   - vars/smb_vars.yml
+#   handlers:
+#   - name: restart smbd
+#     ansible.builtin.service:
+#       name: smbd
+#       state: restarted
+#   tasks:
+#   - name: Install generic needed packages
+#     apt:
+#       name:
+#       - software-properties-common
+#       - dkms
+#       state: latest
+#       cache_valid_time: 3600
+#   - import_tasks: storage-tasks/setupZFStask.yml
+#   - import_tasks: storage-tasks/setupUsersTask.yml
+#   - import_tasks: storage-tasks/setupSambaTask.yml
