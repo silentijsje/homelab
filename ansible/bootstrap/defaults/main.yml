@@ -1,5 +1,3 @@
 ssh_key_location: ~/github/homelab_pub/ssh_keys.pub
 ssh_port: 22
 ssh_permit_root_login: true
-smb_options: credentials={{CIFS_credential_location}}
-#rw,file_mode=0770,dir_mode=0770,uid=1000,gid=1000,
