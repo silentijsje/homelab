@@ -9,10 +9,10 @@ zfs: {
 usergroups:
   - family
   - admins
-
+  
 users:
-  - {name: 'stanley', groups: 'family, admins', smbpasswd: '$Tanley22'}
-  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: '$Tanley22'}
+  - {name: 'stanley', groups: 'family, admins', smbpasswd: '{{Stanley_SMB_password}}'}
+  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: '{{gamer0308_SMB_password}}'}
 
 adminuser: gamer0308 # should be an existing one from above
 
