@@ -29,6 +29,6 @@
     path: "/mnt/{{item.name}}"
     opts: "{{smb_options}}"
     fstype: cifs
-    state: "{{item}}"
+    state: '{{item}}'
   with_items:
     "{{shares_mount}}"
