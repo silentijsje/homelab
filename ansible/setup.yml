@@ -12,18 +12,18 @@
     - role: bootstrap
 #     - geerlingguy.docker
 
-- hosts: media-services
-  become: yes
-  vars_files:
-    - vars/vault.yml
-    - vars/general-services.yml
-  roles:
-    # - role: docker_copy
-    # - role: IronicBadger.docker_compose_generator
-    #   tags: compose
-    # - role: docker_run
-  tasks:
-  - import_tasks: storage-tasks/mountShares.yml
+# - hosts: media-services
+#   become: yes
+#   vars_files:
+#     - vars/vault.yml
+#     - vars/general-services.yml
+#   roles:
+#     # - role: docker_copy
+#     # - role: IronicBadger.docker_compose_generator
+#     #   tags: compose
+#     # - role: docker_run
+#   tasks:
+#   - import_tasks: storage-tasks/mountShares.yml
 
 - hosts: external-services
   become: yes
