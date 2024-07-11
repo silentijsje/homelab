@@ -7,6 +7,16 @@
     dest: "{{CIFS_credential_location}}"
     mode: '0600'
 
+- name: Create personal folders for users
+  file:
+    path: /{{zfs.poolName}}/personal/{{item.name}}
+    state: directory
+    owner: "{{item.name}}"
+    group: "{{item.name}}"
+    mode: "0770"
+  with_items:
+    - "{{users}}"
+
 - name: Mount proxmox ssd_storage volume
   mount:
     src: "//{{ item.ip }}/{{ item.name }}"
