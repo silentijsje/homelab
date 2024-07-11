@@ -38,6 +38,7 @@
   vars_files:
     - vars/vault.yml
     - vars/general-services.yml
+    - vars/smb_vars.yml
   roles:
   - role: bootstrap
 #     - role: docker_copy
