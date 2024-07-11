@@ -1,9 +1,9 @@
 ---
 # all non secret vars
 zfs: {
-  poolName: dataPool,
-  DISK1: '/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1',
-  DISK2: '/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi2',
+  poolName: ssd,
+  DISK1: '/dev/sdb',
+  DISK2: '/dev/sdc',
 }
 
 usergroups:
