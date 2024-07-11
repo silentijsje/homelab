@@ -24,11 +24,10 @@
 #     state: mounted
 
 - name: Mount proxmox ssd_storage volume
-  ansible.posix.mount:
+  mount:
     src: "//{{item.ip}}/{{item.name}}"
     path: "/mnt/{{item.name}}"
     opts: "{{smb_options}}"
     fstype: cifs
-    state: mounted
-  with_items:
-    "{{shares_mount}}"
+    state: "{{ item.state }}"
+  loop: "{{ shares_mount }}"
