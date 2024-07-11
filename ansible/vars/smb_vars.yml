@@ -1,0 +1,26 @@
+---
+# all non secret vars
+zfs: {
+  poolName: ssd,
+  DISK1: '/dev/sdb',
+  DISK2: '/dev/sdc',
+}
+
+usergroups:
+  - family
+  - admins
+
+users:
+  - {name: 'stanley', groups: 'family, admins', smbpasswd: '{{Stanley_SMB_password}}'}
+  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: '{{gamer0308_SMB_password}}'}
+
+adminuser: gamer0308 # should be an existing one from above
+
+shared_folders:
+  - {name: 'photos', path: '/{{zfs.poolName}}/media/photos'}
+  - {name: 'music', path: '/{{zfs.poolName}}/media/music'}
+  - {name: 'ssd_storage', path: '/{{zfs.poolName}}/ssd_storage'}
+  - {name: 'shared-folder', path: '/{{zfs.poolName}}/personal/all'}
+  - {name: 'shared-backup-folder', path: '/{{zfs.poolName}}/backup/all'}
+
+shared_folders_group: family
