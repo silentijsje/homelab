@@ -1,13 +1,14 @@
-# - hosts: 
-#     - code02
-#     - general-services
-#     - external-services
-#     - media-services
-#   become: yes
-#   vars_files:
-#     - vars/vault.yml
-#   roles:
-#     - bootstrap
+- hosts: 
+    - code02
+    - general-services
+    - external-services
+    - media-services
+    - storage
+  become: yes
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - bootstrap
 #     - geerlingguy.docker
 
 - hosts: media-services
