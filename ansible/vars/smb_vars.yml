@@ -7,8 +7,8 @@ zfs: {
 }
 
 usergroups:
-  - { name: 'admins', gid: 1001 }
-  - { name: 'family', gid: 1002 }
+  - { name: 'admins', gid: 1002 }
+  - { name: 'family', gid: 1001 }
   
 users:
   - {name: 'stanley', groups: 'family', smbpasswd: '{{Stanley_SMB_password}}', uid: 1001}
