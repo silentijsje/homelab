@@ -9,4 +9,4 @@ file_path: "general-services"
 shares_mount:
   - {name: 'backup', ip: '10.0.31.2', state: 'mounted'}
   - {name: 'media', ip: '10.0.31.2', state: 'mounted'}
-  - {name: 'ssd_storage', ip: '10.0.31.3', state: 'absent'}
+  - {name: 'ssd_storage', ip: '10.0.31.3', state: 'mounted'}
