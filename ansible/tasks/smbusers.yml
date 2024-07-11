@@ -4,11 +4,11 @@
     comment: "{{item.name}}"
     create_home: yes
 
-- name: Check existence of smb user {{item.name}}
-  ansible.builtin.command: "pdbedit -u {{item.name}}"
-  register: userstat
-  failed_when: "userstat.rc not in [ 0, 256 ]"
-  changed_when: false
+# - name: Check existence of smb user {{item.name}}
+#   ansible.builtin.command: "pdbedit -u {{item.name}}"
+#   register: userstat
+#   failed_when: "userstat.rc not in [ 0, 256 ]"
+#   changed_when: false
 
 - name: Create samba user {{item.name}}
   shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
