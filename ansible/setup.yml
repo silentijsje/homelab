@@ -3,7 +3,6 @@
     - general-services
     - external-services
     - media-services
-    - storage
   become: yes
   vars_files:
     - vars/vault.yml
