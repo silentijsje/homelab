@@ -4,6 +4,6 @@ services_path: "/mnt/docker"
 file_path: "external-services"
 
 shares_mount:
-  - {name: 'backup', ip: '10.0.32.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'media', ip: '10.0.32.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'ssd_storage', ip: '10.0.32.3', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'backup', ip: '10.0.33.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'media', ip: '10.0.33.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'ssd_storage', ip: '10.0.33.3', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
