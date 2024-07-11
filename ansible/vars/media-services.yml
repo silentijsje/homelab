@@ -1,7 +1,9 @@
 ---
 # all non secret vars
-nas_ip: "10.0.30.2"
-prox_ip: "10.0.30.3"
-
 services_path: "/mnt/docker"
 file_path: "media-services"
+
+shares_mount:
+  - {name: 'backup', ip: '10.0.30.2', state: 'mounted'}
+  - {name: 'media', ip: '10.0.30.2', state: 'mounted'}
+  - {name: 'ssd_storage', ip: '10.0.30.3', state: 'mounted'}
