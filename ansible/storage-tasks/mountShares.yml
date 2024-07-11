@@ -30,4 +30,5 @@
     opts: "{{smb_options}}"
     fstype: cifs
     state: "{{ item.state }}"
-  loop: "{{ shares_mount }}"
+  with_items:
+    "{{shares_mount}}"
