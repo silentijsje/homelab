@@ -27,9 +27,8 @@
   ansible.posix.mount:
     src: "//{{item.ip}}/{{item.name}}"
     path: "/mnt/{{item.name}}"
-    opts: "credentials={{CIFS_credential_location}}"
-    # opts: "{{smb_options}}"
+    opts: "{{smb_options}}"
     fstype: cifs
-    state: "{{item.name}}"
+    state: "{{item}}"
   with_items:
     "{{shares_mount}}"
