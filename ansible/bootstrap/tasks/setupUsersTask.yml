@@ -2,7 +2,7 @@
 - name: Ensure usergroups exist
   group:
     name: "{{item.name}}"
-    gid: "{{item.gid}}"
+    # gid: "{{item.gid}}"
     state: present
   with_items:
     "{{usergroups}}"
@@ -13,7 +13,7 @@
     groups: "{{item.groups}}"
     append: yes
     shell: /bin/bash
-    uid: "{{ item.uid }}"
+    # uid: "{{ item.uid }}"
     update_password: on_create
   with_items:
     "{{users}}"
