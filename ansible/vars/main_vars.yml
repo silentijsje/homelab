@@ -11,14 +11,14 @@ usergroups:
   - admins
 
 users:
-  - {name: 'stanley', groups: 'family, admins', smbpasswd: 'stanley'}
-  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: 'gamer0308'}
+  - {name: 'stanley', groups: 'family, admins', smbpasswd: '{{Stanley_SMB_password}}'}
+  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: '{{gamer0308_SMB_password}}'}
 
 adminuser: gamer0308 # should be an existing one from above
 
 shared_folders:
-  - {name: 'Images', path: '/{{zfs.poolName}}/media/images'}
-  - {name: 'Music', path: '/{{zfs.poolName}}/media/music'}
+  - {name: 'photos', path: '/{{zfs.poolName}}/media/photos'}
+  - {name: 'music', path: '/{{zfs.poolName}}/media/music'}
   - {name: 'Shared folder', path: '/{{zfs.poolName}}/personal/all'}
   - {name: 'Shared Backup Folder', path: '/{{zfs.poolName}}/backup/all'}
 
