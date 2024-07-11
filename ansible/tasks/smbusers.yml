@@ -1,3 +1,9 @@
+- name: Create user {{item.name}}
+  ansible.builtin.user:
+    name: "{{item.name}}"
+    comment: "{{item.name}}"
+    create_home: yes
+
 - name: Check existence of smb user {{item.name}}
   ansible.builtin.command: "pdbedit -u {{item.name}}"
   register: userstat
