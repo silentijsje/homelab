@@ -40,11 +40,12 @@
     - vars/general-services.yml
   roles:
   - role: bootstrap
-  - import_tasks: storage-tasks/mountShares.yml
 #     - role: docker_copy
 #     - role: IronicBadger.docker_compose_generator
 #       tags: compose
 #     - role: docker_run
+  tasks:
+  - import_tasks: storage-tasks/mountShares.yml
 
 # - hosts: storage
 #   name: "Setting up the home server"
