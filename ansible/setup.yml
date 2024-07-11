@@ -39,6 +39,8 @@
     - vars/vault.yml
     - vars/general-services.yml
     - vars/smb_vars.yml
+  tasks:
+  - import_tasks: storage-tasks/setupUsersTask.yml
   roles:
   - role: bootstrap
 #     - role: docker_copy
@@ -46,7 +48,6 @@
 #       tags: compose
 #     - role: docker_run
   tasks:
-  - import_tasks: storage-tasks/setupUsersTask.yml
   - import_tasks: storage-tasks/mountShares.yml
 
 # - hosts: storage
