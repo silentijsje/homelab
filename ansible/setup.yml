@@ -46,6 +46,7 @@
 #       tags: compose
 #     - role: docker_run
   tasks:
+  - import_tasks: storage-tasks/setupUsersTask.yml
   - import_tasks: storage-tasks/mountShares.yml
 
 # - hosts: storage
