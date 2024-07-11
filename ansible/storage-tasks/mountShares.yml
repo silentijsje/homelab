@@ -21,7 +21,7 @@
   mount:
     src: "//{{ item.ip }}/{{ item.name }}"
     path: "/mnt/{{ item.name }}"
-    opts: "{{ item.smb_options }}"
+    opts: "{{ smb_options }}"
     fstype: cifs
     state: "{{ item.state }}"
   with_items:
