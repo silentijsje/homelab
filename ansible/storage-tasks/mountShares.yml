@@ -21,7 +21,7 @@
   mount:
     src: "//{{ item.ip }}/{{ item.name }}"
     path: "/mnt/{{ item.name }}"
-    opts: "{{ smb_options }}"
+    opts: "rw,file_mode=0770,dir_mode=0770,uid=1000,gid=1000,credentials={{CIFS_credential_location}}"
     fstype: cifs
     state: "{{ item.state }}"
   with_items:
