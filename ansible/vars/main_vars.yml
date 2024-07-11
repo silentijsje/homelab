@@ -11,7 +11,7 @@ usergroups:
   - admins
 
 users:
-  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: 'gamer0308'}
+  - {name: 'stanley', groups: 'family, admins', smbpasswd: 'stanley'}
 
 adminuser: gamer0308 # should be an existing one from above
 
