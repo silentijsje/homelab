@@ -1,4 +1,0 @@
-docker run --rm  -it  \
-  -v "$(pwd)/out":/acme.sh  \
-  --net=host \
-  neilpang/acme.sh  --revoke -d silentijsje.com

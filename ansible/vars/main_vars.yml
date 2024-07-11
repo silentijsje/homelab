@@ -1,0 +1,21 @@
+---
+# all non secret vars
+zfs: {
+  poolName: dataPool,
+  DISK1: '/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1',
+  DISK2: '/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi2',
+}
+
+usergroups:
+  - family
+  - admins
+
+users:
+  - {name: 'gamer0308', groups: 'family, admins', smbpasswd: 'gamer0308'}
+
+adminuser: gamer0308 # should be an existing one from above
+
+shared_folders:
+  - {name: 'media', path: '/home/gamer0308/media'}
+
+shared_folders_group: family
