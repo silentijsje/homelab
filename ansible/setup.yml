@@ -24,6 +24,7 @@
   become: yes
   vars_files:
     - vars/vault.yml
+    - vars/external-services.yml
   roles:
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
