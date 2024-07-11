@@ -47,8 +47,8 @@ containers:
     hostname: syncthing
     include_global_env_vars: true
     volumes:
-      - /mnt/docker/syncthing:/config
-      - /mnt/media:/data
+      - "{{appdata_path}}/syncthing:/config"
+      - "/mnt/media:/data"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.syncthing.rule=Host(`syncthing.silentijsje.com`)"
