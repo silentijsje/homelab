@@ -1,0 +1,7 @@
+---
+# all non secret vars
+nas_ip: "10.0.31.2"
+prox_ip: "10.0.31.3"
+
+services_path: "/mnt/docker"
+file_path: "general-services"

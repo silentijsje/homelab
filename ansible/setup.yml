@@ -5,17 +5,17 @@
     - media-services
   become: yes
   vars_files:
-    - vars/external-services.yml
     - vars/vault.yml
   roles:
-    - bootstrap
 #     - geerlingguy.docker
 
 - hosts: media-services
   become: yes
   vars_files:
     - vars/vault.yml
+    - vars/media-services.yml
   roles:
+    - role: bootstrap
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
       tags: compose
@@ -27,6 +27,7 @@
     - vars/vault.yml
     - vars/external-services.yml
   roles:
+    - role: bootstrap
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
       tags: compose
@@ -36,7 +37,9 @@
   become: yes
   vars_files:
     - vars/vault.yml
+    - vars/general-services.yml
   roles:
+    - role: bootstrap
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
       tags: compose
