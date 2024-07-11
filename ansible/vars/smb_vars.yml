@@ -24,3 +24,8 @@ shared_folders:
   # - {name: 'shared-backup-folder', path: '/{{zfs.poolName}}/backup/all'}
 
 shared_folders_group: family
+
+shares_mount:
+  - {name: 'backup', ip: '10.0.31.2'}
+  - {name: 'media', ip: '10.0.31.2'}
+  - {name: 'ssd_storage', ip: '10.0.31.3'}
