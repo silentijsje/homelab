@@ -12,6 +12,9 @@ cron jobs
 * * * * * ~/github/homelab_pub/scripts/fetchgit.sh
 ```
 
+useradd -m -s /bin/bash -G sudo gamer0308
+passwd gamer0308
+
 ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519 -C stanley-PC-WSL -q
 
 qm set 330 -scsi1 /dev/disk/by-id/ata-INTEL_SSDSC2KB019T8_PHYF911400AC1P9DGN
