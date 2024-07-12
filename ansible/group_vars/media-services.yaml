@@ -120,7 +120,7 @@ containers:
     restart: always
     include_global_env_vars: true  
 ###
-  - service_name: traefik_local
+  - service_name: traefik
     active: true
     image: traefik:v3.1
     restart: unless-stopped
