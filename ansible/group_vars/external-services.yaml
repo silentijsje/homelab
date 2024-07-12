@@ -55,7 +55,7 @@ containers:
       - "traefik.http.routers.syncthing.entrypoints=https"
       - "traefik.http.routers.syncthing.tls=true"
       - "traefik.http.services.syncthing.loadbalancer.server.port=8384"
-      - "traefik.http.routers.syncthing.middlewares=authelia"
+      # - "traefik.http.routers.syncthing.middlewares=authelia"
     ports:
       - 8384:8384
       - 22000:22000/tcp
