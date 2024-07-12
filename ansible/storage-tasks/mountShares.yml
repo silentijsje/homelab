@@ -25,12 +25,12 @@
     fstype: cifs
     state: mounted
 
-# - name: Mount network shares
-#   ansible.posix.mount:
-#     src: "//{{ item.ip }}/{{ item.name }}"
-#     path: "/mnt/{{ item.name }}"
-#     opts: "{{ smb_options }}"
-#     fstype: "{{ item.type }}"
-#     state: "{{ item.state }}"
-#   with_items:
-#     "{{ shares_mount }}"
+- name: Mount network shares
+  ansible.posix.mount:
+    src: "//{{ item.ip }}/{{ item.name }}"
+    path: "/mnt/{{ item.name }}"
+    opts: "{{ smb_options }}"
+    fstype: "{{ item.type }}"
+    state: "{{ item.state }}"
+  with_items:
+    "{{ shares_mount }}"
