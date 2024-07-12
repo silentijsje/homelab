@@ -40,7 +40,6 @@
 
 - hosts: general-services
   become: yes
-  become_user: root
   vars_files:
     - vars/vault.yml
     - vars/general-services.yml

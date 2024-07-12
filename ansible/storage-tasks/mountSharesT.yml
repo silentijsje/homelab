@@ -1,0 +1,18 @@
+---
+- name: Mount network shares
+  ansible.posix.mount:
+    src: "//{{ item.ip }}/{{ item.name }}"
+    path: "/mnt/{{ item.name }}"
+    opts: "{{ smb_options }}"
+    fstype: "{{ item.type }}"
+    state: "{{ item.state }}"
+  with_items:
+    "{{ shares_mount }}"
+
+# - name: Mount ephemeral SMB volume
+#   ansible.posix.mount:
+#     src: //192.168.1.200/share
+#     path: /mnt/smb_share
+#     opts: "rw,vers=3,file_mode=0600,dir_mode=0700,dom={{ ad_domain }},username={{ ad_username }},password={{ ad_password }}"
+#     fstype: cifs
+#     state: ephemeral
