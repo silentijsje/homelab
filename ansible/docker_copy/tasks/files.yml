@@ -1,8 +1,8 @@
 ---
-# - name: Delete content & directory
-#   ansible.builtin.file:
-#     state: absent
-#     path: "/mnt/docker/traefik/configs"
+- name: Delete content & directory
+  ansible.builtin.file:
+    state: absent
+    path: "/mnt/docker/traefik/configs"
 
 - name: copy
   ansible.builtin.copy:

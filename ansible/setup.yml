@@ -16,7 +16,7 @@
   become: yes
   vars_files:
     - vars/vault.yml
-    - vars/general-services.yml
+    - vars/media-services.yml
     - vars/shares.yml
   roles:
     - role: docker_copy
@@ -30,7 +30,7 @@
   become: yes
   vars_files:
     - vars/vault.yml
-    - vars/general-services.yml
+    - vars/external-services.yml
     - vars/shares.yml
   roles:
     - role: docker_copy
