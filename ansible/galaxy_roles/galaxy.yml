@@ -1,0 +1,9 @@
+---
+# Docker for Linux. 
+# - name: geerlingguy.docker
+#   type: galaxy
+
+# Compose file generator. 
+- name: IronicBadger.docker_compose_generator
+  type: galaxy
+
