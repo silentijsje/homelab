@@ -29,10 +29,8 @@
 
 - name: Mount network shares
   mount:
-    src: "//{{ item.ip }}/{{ item.name }}"
-    path: "/mnt/{{ item.name }}"
-    # opts: "{{ smb_options }}"
+    src: "//10.0.33.3/backup"
+    path: "/mnt/backup"
+    opts: "{{ smb_options }}"
     fstype: cifs
     state: mounted
-  with_items:
-    "{{ shares_mount }}"
