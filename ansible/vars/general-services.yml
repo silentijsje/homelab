@@ -6,6 +6,6 @@ file_path: "general-services"
 smb_options: "rw,file_mode=0770,dir_mode=0770,uid=1000,gid=1000,credentials={{CIFS_credential_location}}"
 
 shares_mount:
-  - {name: 'backup', ip: '10.0.31.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'media', ip: '10.0.31.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'ssd_storage', ip: '10.0.31.3', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'backup', ip: '10.0.31.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'media', ip: '10.0.31.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'ssd_storage', ip: '10.0.31.3',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
