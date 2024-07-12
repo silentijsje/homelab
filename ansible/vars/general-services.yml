@@ -8,6 +8,6 @@ smb_options: "rw,vers=3,file_mode=0770,dir_mode=0770,username={{ ad_username }},
 
 
 shares_mount:
-  - {name: 'backup', ip: '10.0.31.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'media', ip: '10.0.31.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'ssd_storage', ip: '10.0.31.3',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'backup', ip: '10.0.33.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'media', ip: '10.0.33.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'ssd_storage', ip: '10.0.33.3',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
