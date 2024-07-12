@@ -1,6 +1,5 @@
 - hosts: 
     - code02
-    - general-services
     - external-services
     - media-services
     - storage
