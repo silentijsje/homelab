@@ -49,7 +49,7 @@
     #   tags: compose
     # - role: docker_run
   tasks:
-  - import_tasks: storage-tasks/mountSharesT.yml
+  - import_tasks: storage-tasks/mountShares.yml
 
 # - hosts: storage
 #   name: "Setting up the home server"
