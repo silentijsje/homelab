@@ -74,6 +74,7 @@ containers:
     ports:
       - 80:80
       - 443:443
+    include_global_env_vars: true
     environment:
       - "CF_DNS_API_TOKEN={{CF_DNS_API_TOKEN}}"
       - "TRAEFIK_DASHBOARD_CREDENTIALS={{TRAEFIK_DASHBOARD_CREDENTIALS}}"
