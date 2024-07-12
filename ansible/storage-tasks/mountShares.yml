@@ -17,20 +17,12 @@
   with_items:
     - "{{shares_mount}}"
 
-# - name: Mount network shares
-#   mount:
-#     src: "//{{ item.ip }}/{{ item.name }}"
-#     path: "/mnt/{{ item.name }}"
-#     opts: "{{ smb_options }}"
-#     fstype: cifs
-#     state: "{{ item.state }}"
-#   with_items:
-#     "{{ shares_mount }}"
-
 - name: Mount network shares
   mount:
-    src: "//10.0.33.3/backup"
-    path: "/mnt/backup"
+    src: "//{{ item.ip }}/{{ item.name }}"
+    path: "/mnt/{{ item.name }}"
     opts: "{{ smb_options }}"
     fstype: cifs
-    state: mounted
+    state: "{{ item.state }}"
+  with_items:
+    "{{ shares_mount }}"
