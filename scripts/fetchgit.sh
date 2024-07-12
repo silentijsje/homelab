@@ -2,7 +2,7 @@
 
 # Define an array of directories
 directories=(
-    "~/github/homelab"
+    "/home/gamer0308/github/homelab"
 )
 
 # Iterate over each directory
