@@ -7,3 +7,4 @@ shares_mount:
   - {name: 'backup', ip: '10.0.33.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
   - {name: 'media', ip: '10.0.33.2',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
   - {name: 'ssd_storage', ip: '10.0.33.3',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
+  - {name: 'syncthing', ip: '10.0.33.3',type: 'cifs', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}

@@ -20,6 +20,7 @@ shared_folders:
   - {name: 'photos', path: '/{{zfs.poolName}}/media/photos'}
   - {name: 'music', path: '/{{zfs.poolName}}/media/music'}
   - {name: 'ssd_storage', path: '/{{zfs.poolName}}/ssd_storage'}
+  - {name: 'syncthing', path: '/{{zfs.poolName}}/syncthing'}
   # - {name: 'shared-folder', path: '/{{zfs.poolName}}/personal/all'}
   # - {name: 'shared-backup-folder', path: '/{{zfs.poolName}}/backup/all'}
 
