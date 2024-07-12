@@ -2,11 +2,3 @@
 # all non secret vars
 services_path: "/mnt/docker"
 file_path: "external-services"
-
-smb_options: credentials={{CIFS_credential_location}}
-#rw,file_mode=0770,dir_mode=0770,uid=1000,gid=1000,
-
-shares_mount:
-  - {name: 'backup', ip: '10.0.33.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'media', ip: '10.0.33.2', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}
-  - {name: 'ssd_storage', ip: '10.0.33.3', state: 'mounted', user: 'gamer0308', group: 'gamer0308'}

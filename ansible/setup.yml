@@ -17,6 +17,7 @@
   vars_files:
     - vars/vault.yml
     - vars/general-services.yml
+    - vars/shares.yml
   roles:
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
@@ -30,6 +31,7 @@
   vars_files:
     - vars/vault.yml
     - vars/general-services.yml
+    - vars/shares.yml
   roles:
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
@@ -43,6 +45,7 @@
 #   vars_files:
 #     - vars/vault.yml
 #     - vars/general-services.yml
+#     - vars/shares.yml
 #   roles:
 #     - role: docker_copy
 #     - role: IronicBadger.docker_compose_generator

@@ -69,8 +69,6 @@ containers:
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-    networks:
-      - web
     ports:
       - 80:80
       - 443:443
