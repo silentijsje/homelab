@@ -5,4 +5,4 @@
     path: /mnt/ssd_storage
     opts: "rw,vers=3,file_mode=0600,dir_mode=0700,username={{ ad_username }},password={{ ad_password }}"
     fstype: cifs
-    state: ephemeral
+    state: mounted
