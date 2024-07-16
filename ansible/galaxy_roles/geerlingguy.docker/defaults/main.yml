@@ -56,6 +56,7 @@ docker_users:
   - gamer0308
   - root
   - docker
+  - stanley
 
 # Docker daemon options as a dict
 docker_daemon_options: {}
