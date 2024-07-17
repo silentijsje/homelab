@@ -25,6 +25,7 @@ shared_folders:
 
 admin_folders:
   - {name: 'docker', path: '/{{zfs.poolName}}/docker'}
+  - {name: 'databases', path: '/{{zfs.poolName}}/databases'}
 
 shared_folders_group: family
 admins_folders_group: admins
