@@ -11,10 +11,10 @@ usergroups:
   - { name: 'family', gid: 1001 }
   
 users:
-  - {name: 'stanley', groups: 'family', smbpasswd: '{{Stanley_SMB_password}}', uid: 1000}
+  - {name: 'stanley', groups: 'family, admins', smbpasswd: '{{Stanley_SMB_password}}', uid: 1000}
   - {name: 'gamer0308', groups: 'family', smbpasswd: '{{gamer0308_SMB_password}}', uid: 1001}
 
-adminuser: gamer0308 # should be an existing one from above
+adminuser: stanley # should be an existing one from above
 
 shared_folders:
   - {name: 'photos', path: '/{{zfs.poolName}}/media/photos'}
@@ -22,6 +22,9 @@ shared_folders:
   - {name: 'syncthing', path: '/{{zfs.poolName}}/syncthing'}
   - {name: 'shared-folder', path: '/{{zfs.poolName}}/personal/all'}
   - {name: 'shared-backup-folder', path: '/{{zfs.poolName}}/backup/all'}
+
+admin_folders:
   - {name: 'docker', path: '/{{zfs.poolName}}/docker'}
 
 shared_folders_group: family
+admins_folders_group: admins

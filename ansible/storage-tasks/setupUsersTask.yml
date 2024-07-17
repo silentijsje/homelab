@@ -43,3 +43,12 @@
     mode: "0770"
   with_items:
     - "{{shared_folders}}"
+
+- name: Create admin folders
+  file:
+    path: "{{item.path}}"
+    state: directory
+    group: "{{admins_folders_group}}"
+    mode: "0770"
+  with_items:
+    - "{{admin_folders}}"
