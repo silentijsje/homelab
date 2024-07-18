@@ -1,6 +1,6 @@
 ---
 - name: pull containers and start them up and clean up old container files
-  ansible.builtin.shell: "cd /mnt/ansible && docker compose pull && docker compose up -d && docker system prune --all -f"
+  ansible.builtin.shell: "cd /ssd/docker/ansible && docker compose pull && docker compose up -d && docker system prune --all -f"
 
 - name: restart traefik
   ansible.builtin.shell: "docker restart traefik"

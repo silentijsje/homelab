@@ -1,4 +1,0 @@
----
-# all non secret vars
-services_path: "/ssd/docker"
-file_path: "media-services"

@@ -1,16 +1,28 @@
 ---
 # ironicbadger.docker_compose_generator
-appdata_path: /mnt/docker
-container_config_path: /config
-docker_compose_generator_output_path: "/mnt/ansible"
+appdata_path: /ssd/docker
+container_media_path: /mnt/media
+docker_compose_generator_output_path: "/ssd/docker/ansible"
+sabnzbd_incomplete_downloads_path: "/mnt/incomplete"
 
 # global vars
 global_env_vars:
   - "PUID={{ docker_compose_generator_uid }}"
   - "PGID={{ docker_compose_generator_gid }}"
+  - "UMASK={{ docker_compose_generator_umask }}"
   - "TZ={{ ntp_timezone }}"
 
 containers:
+###
+  - service_name: portainer
+    active: true
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9443:9443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "{{appdata_path}}/portainer_data:/data"
+    restart: always
 ###
   - service_name: portainer_agent
     active: true
@@ -145,3 +157,86 @@ containers:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     restart: always
     include_global_env_vars: true
+###
+  - service_name: sabnzbd
+    active: true
+    image: lscr.io/linuxserver/sabnzbd:latest
+    include_global_env_vars: true
+    volumes:
+      - "{{ appdata_path }}/sabnzbd:/config"
+      - "{{ container_media_path }}:/data"
+      - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete" #optional
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+###
+  - service_name: jellyseerr
+    active: true
+    image: fallenbagel/jellyseerr:latest
+    include_global_env_vars: true
+    volumes:
+      - "{{ appdata_path }}/jellyseerr:/app/config"
+    ports:
+      - 5055:5055
+    restart: unless-stopped
+###
+  - service_name: prowlarr
+    active: true
+    image: "lscr.io/linuxserver/prowlarr:latest"
+    container_name: "prowlarr"
+    volumes:
+      - "{{ appdata_path }}/prowlarr:/config"
+      - "{{ container_media_path }}:/data"
+    ports:
+      - 9696:9696
+    include_global_env_vars: true
+    restart: unless-stopped
+###
+  - service_name: radarr
+    active: true
+    image: "lscr.io/linuxserver/radarr:latest"
+    container_name: "radarr"
+    volumes:
+      - "{{ appdata_path }}/radarr:/config"
+      - "{{ container_media_path }}:/data"
+    ports:
+      - 7878:7878
+    include_global_env_vars: true
+    restart: unless-stopped
+###
+  - service_name: sonarr
+    active: true
+    image: "lscr.io/linuxserver/sonarr:latest"
+    container_name: "sonarr"
+    volumes:
+      - "{{ appdata_path }}/sonarr:/config"
+      - "{{ container_media_path }}:/data"
+    ports:
+      - 8989:8989
+    include_global_env_vars: true
+    restart: unless-stopped
+###
+  - service_name: animarr
+    active: true
+    image: "lscr.io/linuxserver/sonarr:latest"
+    container_name: "animarr"
+    # network_mode: service:tailscale
+    ports:
+      - 8988:8989
+    volumes:
+      - "{{ appdata_path }}/animarr:/config"
+      - "{{ container_media_path }}:/data"
+    include_global_env_vars: true
+    restart: unless-stopped
+###
+  - service_name: bazarr
+    active: true
+    image: "lscr.io/linuxserver/bazarr:latest"
+    container_name: "bazarr"
+    volumes:
+      - "{{ appdata_path }}/bazarr:/config"
+      - "{{ container_media_path }}:/data"
+    ports:
+      - 6767:6767
+    include_global_env_vars: true
+    restart: unless-stopped

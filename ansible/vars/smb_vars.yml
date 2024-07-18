@@ -11,7 +11,7 @@ usergroups:
   - { name: 'family', gid: 1001 }
 
 users:
-  - {name: 'stanley', groups: 'family, admins', smbpasswd: '{{Stanley_SMB_password}}', uid: 1000}
+  - {name: 'stanley', groups: 'family, admins, docker', smbpasswd: '{{Stanley_SMB_password}}', uid: 1000}
   - {name: 'gamer0308', groups: 'family', smbpasswd: '{{gamer0308_SMB_password}}', uid: 1001}
 
 adminuser: stanley # should be an existing one from above
@@ -29,3 +29,6 @@ admin_folders:
 
 shared_folders_group: family
 admins_folders_group: admins
+
+services_path: "/{{zfs.poolName}}/docker"
+file_path: "homeserver"

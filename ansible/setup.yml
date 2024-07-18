@@ -35,3 +35,9 @@
   - import_tasks: storage-tasks/setupZFStask.yml
   - import_tasks: storage-tasks/setupUsersTask.yml
   - import_tasks: storage-tasks/setupSambaTask.yml
+  roles:
+#     - role: bootstrap
+#     - role: geerlingguy.docker
+    - role: docker_copy
+    - role: IronicBadger.docker_compose_generator
+    - role: docker_run

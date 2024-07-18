@@ -1,4 +1,0 @@
----
-# all non secret vars
-services_path: "/mnt/docker"
-file_path: "general-services"
