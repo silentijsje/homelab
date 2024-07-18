@@ -1,8 +1,8 @@
 ---
 # ironicbadger.docker_compose_generator
-appdata_path: /ssd/docker
+appdata_path: /mnt/docker
 container_media_path: /mnt/media
-docker_compose_generator_output_path: "/ssd/docker/ansible"
+docker_compose_generator_output_path: "{{services_path}}/ansible"
 sabnzbd_incomplete_downloads_path: "/mnt/incomplete"
 
 # global vars
