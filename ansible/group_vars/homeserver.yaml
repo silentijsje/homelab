@@ -267,38 +267,12 @@ containers:
   - service_name: jellyfin
     active: true
     image: "lscr.io/linuxserver/jellyfin:latest"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.silentijsje.com`)"
-      - "traefik.http.routers.jellyfin.entrypoints=https"
-      - "traefik.http.routers.jellyfin.tls=true"
-      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
-      - "traefik.http.routers.jellyfin.middlewares=authelia@docker"
     volumes:
       - "{{appdata_path}}/jellyfin:/config"
       - "{{ container_media_path }}:/data"
     ports:
       - 8096:8096
-      # - 8920:8920 #optional
-      # - 7359:7359/udp #optional
-      # - 1900:1900/udp #optional
+    device:
+      - "/dev/dri:/dev/dri"
     include_global_env_vars: true
     restart: unless-stopped
-###
-  # - service_name: pihole
-  #   active: true
-  #   image: pihole/pihole:latest
-  #   ports:
-  #     - "53:53/tcp"
-  #     - "53:53/udp"
-  #     - "8081:80/tcp"
-  #   environment:
-  #     - "WEBPASSWORD={{ pihole_web_password }}"
-  #     - "PIHOLE_DNS_=9.9.9.9;1.1.1.1"
-  #     - "DNSSEC=true"
-  #     - "DNSMASQ_LISTENING=all"
-  #   include_global_env_vars: true
-  #   volumes:
-  #     - "{{appdata_path}}/pihole/etc-pihole:/etc/pihole"
-  #     - "{{appdata_path}}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
-  #   restart: unless-stopped
