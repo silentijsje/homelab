@@ -156,11 +156,11 @@ containers:
       - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete" #optional
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`sabnzbd.silentijsje.com`)"
-      - "traefik.http.routers.homer.entrypoints=https"
-      - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=8080"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
+      - "traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.silentijsje.com`)"
+      - "traefik.http.routers.sabnzbd.entrypoints=https"
+      - "traefik.http.routers.sabnzbd.tls=true"
+      - "traefik.http.services.sabnzbd.loadbalancer.server.port=8080"
+      - "traefik.http.routers.sabnzbd.middlewares=authelia@docker"
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -173,11 +173,11 @@ containers:
       - "{{ appdata_path }}/jellyseerr:/app/config"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`overseerr.silentijsje.com`)"
-      - "traefik.http.routers.homer.entrypoints=https"
-      - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=5055"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
+      - "traefik.http.routers.jellyseerr.rule=Host(`overseerr.silentijsje.com`)"
+      - "traefik.http.routers.jellyseerr.entrypoints=https"
+      - "traefik.http.routers.jellyseerr.tls=true"
+      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+      - "traefik.http.routers.jellyseerr.middlewares=authelia@docker"
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -203,11 +203,11 @@ containers:
       - "{{ container_media_path }}:/data"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`radarr.silentijsje.com`)"
-      - "traefik.http.routers.homer.entrypoints=https"
-      - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=7878"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
+      - "traefik.http.routers.sonarr.rule=Host(`radarr.silentijsje.com`)"
+      - "traefik.http.routers.sonarr.entrypoints=https"
+      - "traefik.http.routers.sonarr.tls=true"
+      - "traefik.http.services.sonarr.loadbalancer.server.port=7878"
+      - "traefik.http.routers.sonarr.middlewares=authelia@docker"
     ports:
       - 7878:7878
     include_global_env_vars: true
@@ -222,11 +222,11 @@ containers:
       - "{{ container_media_path }}:/data"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`sonarr.silentijsje.com`)"
-      - "traefik.http.routers.homer.entrypoints=https"
-      - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=8989"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.silentijsje.com`)"
+      - "traefik.http.routers.sonarr.entrypoints=https"
+      - "traefik.http.routers.sonarr.tls=true"
+      - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
+      - "traefik.http.routers.sonarr.middlewares=authelia@docker"
     ports:
       - 8989:8989
     include_global_env_vars: true
@@ -244,11 +244,11 @@ containers:
       - "{{ container_media_path }}:/data"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`animarr.silentijsje.com`)"
-      - "traefik.http.routers.homer.entrypoints=https"
-      - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=8988"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
+      - "traefik.http.routers.animarr.rule=Host(`animarr.silentijsje.com`)"
+      - "traefik.http.routers.animarr.entrypoints=https"
+      - "traefik.http.routers.animarr.tls=true"
+      - "traefik.http.services.animarr.loadbalancer.server.port=8988"
+      - "traefik.http.routers.animarr.middlewares=authelia@docker"
     include_global_env_vars: true
     restart: unless-stopped
 ###
@@ -261,6 +261,27 @@ containers:
       - "{{ container_media_path }}:/data"
     ports:
       - 6767:6767
+    include_global_env_vars: true
+    restart: unless-stopped
+###
+  - service_name: jellyfin
+    active: true
+    image: "lscr.io/linuxserver/jellyfin:latest"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.silentijsje.com`)"
+      - "traefik.http.routers.jellyfin.entrypoints=https"
+      - "traefik.http.routers.jellyfin.tls=true"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+      - "traefik.http.routers.jellyfin.middlewares=authelia@docker"
+    volumes:
+      - "{{appdata_path}}/jellyfin:/config"
+      - "{{ container_media_path }}:/data"
+    ports:
+      - 8096:8096
+      # - 8920:8920 #optional
+      # - 7359:7359/udp #optional
+      # - 1900:1900/udp #optional
     include_global_env_vars: true
     restart: unless-stopped
 ###
@@ -281,17 +302,3 @@ containers:
   #     - "{{appdata_path}}/pihole/etc-pihole:/etc/pihole"
   #     - "{{appdata_path}}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
   #   restart: unless-stopped
-###
-  - service_name: jellyfin
-    active: true
-    image: "lscr.io/linuxserver/jellyfin:latest"
-    volumes:
-      - "{{appdata_path}}/jellyfin:/config"
-      - "{{ container_media_path }}:/data"
-    ports:
-      - 8096:8096
-      # - 8920:8920 #optional
-      # - 7359:7359/udp #optional
-      # - 1900:1900/udp #optional
-    include_global_env_vars: true
-    restart: unless-stopped
