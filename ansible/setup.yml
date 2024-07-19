@@ -1,43 +1,13 @@
-# - hosts: 
-#     - homeserver
-#   become: yes
-#   vars_files:
-#     - vars/vault.yml
-#     - vars/smb_vars.yml
-#   roles:
-#     - role: bootstrap
-#     - role: geerlingguy.docker
-#     - role: docker_copy
-#     - role: IronicBadger.docker_compose_generator
-#       tags: compose
-#     - role: docker_run
-
 - hosts: homeserver
   name: "Setting up the home server"
   become: yes
-  become_user: root
   vars_files:
   - vars/vault.yml
-  - vars/smb_vars.yml
-  handlers:
-  - name: restart smbd
-    ansible.builtin.service:
-      name: smbd
-      state: restarted
-  tasks:
-  - name: Install generic needed packages
-    apt:
-      name:
-      - software-properties-common
-      - dkms
-      state: latest
-      cache_valid_time: 3600
-  - import_tasks: storage-tasks/setupZFStask.yml
-  - import_tasks: storage-tasks/setupUsersTask.yml
-  - import_tasks: storage-tasks/setupSambaTask.yml
+  - vars/homeserver.yml
   roles:
 #     - role: bootstrap
 #     - role: geerlingguy.docker
+    - role: storage-tasks
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
     - role: docker_run

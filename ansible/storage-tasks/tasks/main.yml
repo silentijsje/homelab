@@ -1,0 +1,11 @@
+- name: Install and run generic tasks
+  include_tasks: generic.yml
+
+- name: Setup ZFS tasks
+  include_tasks: setupZFStask.yml
+
+- name: Create and setup users
+  include_tasks: setupUsersTask.yml
+
+- name: Running samba setup tasks
+  include_tasks: setupSambaTask.yml

@@ -1,2 +1,37 @@
 ---
 # all non secret vars
+zfs: {
+  poolName: ssd,
+  DISK1: '/dev/disk/by-id/scsi-355cd2e4150ca55d9',
+  DISK2: '/dev/disk/by-id/scsi-355cd2e4150cad4a9',
+}
+
+usergroups:
+  - { name: 'admins', gid: 1002 }
+  - { name: 'family', gid: 1001 }
+
+users:
+  - {name: 'stanley', groups: 'family, admins, docker', smbpasswd: '{{Stanley_SMB_password}}', uid: 1000}
+  # - {name: 'gamer0308', groups: 'family', smbpasswd: '{{gamer0308_SMB_password}}', uid: 1001}
+
+adminuser: stanley # should be an existing one from above
+
+shared_folders:
+  - {name: 'photos', path: '/{{zfs.poolName}}/media/photos'}
+  - {name: 'music', path: '/{{zfs.poolName}}/media/music'}
+  - {name: 'syncthing', path: '/{{zfs.poolName}}/syncthing'}
+  - {name: 'shared-folder', path: '/{{zfs.poolName}}/personal/all'}
+  - {name: 'shared-backup-folder', path: '/{{zfs.poolName}}/backup/all'}
+
+admin_folders:
+  - {name: 'docker', path: '/{{zfs.poolName}}/docker'}
+  - {name: 'databases', path: '/{{zfs.poolName}}/databases'}
+
+shared_folders_group: family
+admins_folders_group: admins
+
+appdata_path: /mnt/docker
+container_media_path: /mnt/media
+services_path: "/mnt/docker"
+file_path: "homeserver"
+sabnzbd_incomplete_downloads_path: "/mnt/incomplete"

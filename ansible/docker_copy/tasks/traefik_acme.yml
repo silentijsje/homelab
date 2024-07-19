@@ -8,7 +8,7 @@
 - name: acme.json
   ansible.builtin.file:
     path: "{{services_path}}/traefik/data/acme.json"
-    owner: gamer0308
-    group: gamer0308
+    owner: stanley
+    group: family
     mode: '600'
     state: touch
