@@ -264,20 +264,20 @@ containers:
     include_global_env_vars: true
     restart: unless-stopped
 ###
-  - service_name: pihole
-    active: true
-    image: pihole/pihole:latest
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "8081:80/tcp"
-    environment:
-      - "WEBPASSWORD={{ pihole_web_password }}"
-      - "PIHOLE_DNS_=9.9.9.9;1.1.1.1"
-      - "DNSSEC=true"
-      - "DNSMASQ_LISTENING=all"
-    include_global_env_vars: true
-    volumes:
-      - "{{appdata_path}}/pihole/etc-pihole:/etc/pihole"
-      - "{{appdata_path}}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
-    restart: unless-stopped
+  # - service_name: pihole
+  #   active: true
+  #   image: pihole/pihole:latest
+  #   ports:
+  #     - "53:53/tcp"
+  #     - "53:53/udp"
+  #     - "8081:80/tcp"
+  #   environment:
+  #     - "WEBPASSWORD={{ pihole_web_password }}"
+  #     - "PIHOLE_DNS_=9.9.9.9;1.1.1.1"
+  #     - "DNSSEC=true"
+  #     - "DNSMASQ_LISTENING=all"
+  #   include_global_env_vars: true
+  #   volumes:
+  #     - "{{appdata_path}}/pihole/etc-pihole:/etc/pihole"
+  #     - "{{appdata_path}}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
+  #   restart: unless-stopped
