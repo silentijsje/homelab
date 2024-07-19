@@ -17,4 +17,4 @@ http:
     immich:
       loadBalancer:
         servers:
-          - url: http://10.0.0.97:2283
+          - url: http://10.0.0.3:2283

@@ -33,7 +33,7 @@ containers:
       - "traefik.http.routers.homer.entrypoints=https"
       - "traefik.http.routers.homer.tls=true"
       - "traefik.http.services.homer.loadbalancer.server.port=8080"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
+      - "traefik.http.routers.homer.middlewares=authelia@docker"
     volumes:
       - "{{appdata_path}}/homer/site/:/www/assets"
     ports:
@@ -48,7 +48,7 @@ containers:
     include_global_env_vars: true
     volumes:
       - "{{appdata_path}}/syncthing:/config"
-      - "/mnt/syncthing:/data"
+      - "/{{zfs.poolName}}/syncthing:/data"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.syncthing.rule=Host(`syncthing.silentijsje.com`)"
@@ -203,11 +203,11 @@ containers:
       - "{{ container_media_path }}:/data"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sonarr.rule=Host(`radarr.silentijsje.com`)"
-      - "traefik.http.routers.sonarr.entrypoints=https"
-      - "traefik.http.routers.sonarr.tls=true"
-      - "traefik.http.services.sonarr.loadbalancer.server.port=7878"
-      - "traefik.http.routers.sonarr.middlewares=authelia@docker"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.silentijsje.com`)"
+      - "traefik.http.routers.radarr.entrypoints=https"
+      - "traefik.http.routers.radarr.tls=true"
+      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
+      - "traefik.http.routers.radarr.middlewares=authelia@docker"
     ports:
       - 7878:7878
     include_global_env_vars: true
