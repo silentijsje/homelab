@@ -284,9 +284,7 @@ containers:
 ###
   - service_name: jellyfin
     active: true
-    image: lscr.io/linuxserver/jellyfin:latest
-    environment:
-      # - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
+    image: "lscr.io/linuxserver/jellyfin:latest"
     volumes:
       - "{{appdata_path}}/jellyfin:/config"
       - "{{ container_media_path }}:/data"
