@@ -276,3 +276,27 @@ containers:
       - "/dev/dri:/dev/dri"
     include_global_env_vars: true
     restart: unless-stopped
+###
+  - service_name: MQTT
+    active: true
+    image: "eclipse-mosquitto"
+    volumes:
+      - "{{appdata_path}}/mqtt:/mosquitto"
+    ports:
+      - 1883:1883
+      - 9001:9001
+    restart: unless-stopped
+###
+  - service_name: zigbee2mqtt
+    active: true
+    image: koenkk/zigbee2mqtt
+    restart: unless-stopped
+    volumes:
+      - "{{appdata_path}}/zigbee2mqtt:/app/data"
+      - "/run/udev:/run/udev:ro"
+    ports:
+      - 8082:8080
+    include_global_env_vars: true
+    # devices:
+    #   # Make sure this matched your adapter location
+    #   - /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0018ED3DDF-if00:/dev/ttyACM0
