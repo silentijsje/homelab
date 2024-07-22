@@ -300,3 +300,18 @@ containers:
     # devices:
     #   # Make sure this matched your adapter location
     #   - /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0018ED3DDF-if00:/dev/ttyACM0
+###
+  - service_name: pihole
+    active: true
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8086:80/tcp"
+    environment:
+      - "WEBPASSWORD={{pihole_web_password}}"
+    include_global_env_vars: true
+    volumes:
+      - "{{appdata_path}}/pihole/etc-pihole:/etc/pihole"
+      - "{{appdata_path}}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
+    restart: always
