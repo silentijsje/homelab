@@ -1,4 +1,4 @@
-ansible/.vault_password
+ansible/.vault_pass
 *.env
 .vault_pass
 cf_api_token.txt
