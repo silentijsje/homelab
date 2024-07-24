@@ -1,0 +1,17 @@
+
+###
+  - service_name: jellyfin
+    active: true
+    image: "lscr.io/linuxserver/jellyfin:latest"
+    environment:
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel|DOCKER_MODS=linuxserver/mods:jellyfin-rffmpeg
+    volumes:
+      - "{{appdata_path}}/jellyfin:/config"
+      - "{{ container_media_path }}:/data"
+      - "{{ appdata_path }}/jellyfin/transcode:/transcode"
+    ports:
+      - 8096:8096
+    device:
+      - /dev/dri:/dev/dri
+    include_global_env_vars: true
+    restart: unless-stopped

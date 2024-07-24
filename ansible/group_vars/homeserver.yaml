@@ -264,19 +264,6 @@ containers:
     include_global_env_vars: true
     restart: unless-stopped
 ###
-  - service_name: jellyfin
-    active: true
-    image: "lscr.io/linuxserver/jellyfin:latest"
-    volumes:
-      - "{{appdata_path}}/jellyfin:/config"
-      - "{{ container_media_path }}:/data"
-    ports:
-      - 8096:8096
-    device:
-      - "/dev/dri:/dev/dri"
-    include_global_env_vars: true
-    restart: unless-stopped
-###
   - service_name: MQTT
     active: true
     image: "eclipse-mosquitto"
@@ -286,20 +273,6 @@ containers:
       - 1883:1883
       - 9001:9001
     restart: unless-stopped
-###
-  # - service_name: zigbee2mqtt
-  #   active: true
-  #   image: koenkk/zigbee2mqtt
-  #   restart: unless-stopped
-  #   volumes:
-  #     - "{{appdata_path}}/zigbee2mqtt:/app/data"
-  #     - "/run/udev:/run/udev:ro"
-  #   ports:
-  #     - 8082:8080
-  #   include_global_env_vars: true
-  #   # devices:
-  #   #   # Make sure this matched your adapter location
-  #   #   - /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0018ED3DDF-if00:/dev/ttyACM0
 ###
   - service_name: pihole
     active: true
@@ -321,6 +294,7 @@ containers:
     image: ghcr.io/haveagitgat/tdarr:latest
     restart: unless-stopped
     network_mode: bridge
+    include_global_env_vars: true
     ports:
       - 8265:8265 # webUI port
       - 8266:8266 # server port
@@ -340,3 +314,18 @@ containers:
       - "{{ appdata_path }}/tdarr/transcode_cache:/temp"
     devices:
       - "/dev/dri:/dev/dri"
+###
+  - service_name: jellyfin
+    active: true
+    image: jellyfin/jellyfin
+    include_global_env_vars: true
+    user: 1000:1001
+    group_add:
+      - "992" # Change this to match your "render" host group id and remove this comment
+    network_mode: 'host'
+    volumes:
+      - "{{appdata_path}}/jellyfin:/config"
+      - "{{ container_media_path }}:/data"
+      - "{{ appdata_path }}/jellyfin/transcode:/transcode"
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
