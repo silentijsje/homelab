@@ -321,7 +321,7 @@ containers:
     include_global_env_vars: true
     user: 1000:1001
     group_add:
-      - "992" # Change this to match your "render" host group id and remove this comment
+      - "993"
     network_mode: 'host'
     volumes:
       - "{{appdata_path}}/jellyfin:/config"
