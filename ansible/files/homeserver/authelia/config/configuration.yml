@@ -114,6 +114,7 @@ access_control:
         - "overseerr.silentijsje.com"
         - "hassio.silentijsje.com"
         - "homer.silentijsje.com"
+        - "jellyfin.silentijsje.com"
       policy: bypass
     ## one factor login - catch all 
     - domain: '*.silentijsje.com'

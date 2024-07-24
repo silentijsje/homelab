@@ -322,10 +322,12 @@ containers:
     user: 1000:1001
     group_add:
       - "993"
-    network_mode: 'host'
+    # network_mode: 'host'
     volumes:
       - "{{appdata_path}}/jellyfin:/config"
       - "{{ container_media_path }}:/data"
       - "{{ appdata_path }}/jellyfin/transcode:/transcode"
+    ports:
+      - 8096:8096
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
