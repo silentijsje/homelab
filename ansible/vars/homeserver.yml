@@ -22,6 +22,7 @@ shared_folders:
   - {name: 'syncthing', path: '/{{zfs.poolName}}/syncthing'}
   - {name: 'shared-folder', path: '/{{zfs.poolName}}/personal/all'}
   - {name: 'shared-backup-folder', path: '/{{zfs.poolName}}/backup/all'}
+  - {name: 'docker', path: '/mnt/docker'}
 
 admin_folders:
   - {name: 'docker', path: '/{{zfs.poolName}}/docker'}
