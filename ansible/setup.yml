@@ -5,8 +5,8 @@
   - vars/vault.yml
   - vars/homeserver.yml
   roles:
-#     - role: bootstrap
-#     - role: geerlingguy.docker
+    # - role: bootstrap
+    # - role: geerlingguy.docker
     - role: storage-tasks
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
