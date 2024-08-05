@@ -7,7 +7,6 @@
   roles:
     # - role: bootstrap
     # - role: geerlingguy.docker
-    # - role: storage-tasks
     - role: docker_copy
     - role: IronicBadger.docker_compose_generator
     - role: docker_run
