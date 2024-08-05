@@ -1,14 +1,5 @@
 ---
 # all non secret vars
-usergroups:
-  - { name: 'admins', gid: 1002 }
-  - { name: 'family', gid: 1001 }
-
-users:
-  - {name: 'stanley', groups: 'family, admins, docker', smbpasswd: '{{Stanley_SMB_password}}', uid: 1000}
-
-adminuser: stanley
-
 appdata_path: /mnt/docker
 container_media_path: /mnt/media
 proxy_path: /mnt/proxy

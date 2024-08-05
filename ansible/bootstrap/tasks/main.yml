@@ -7,8 +7,5 @@
 - name: Hardening sshd
   include_tasks: sshd.yml
 
-# - name: Setup users
-#   include_tasks: setupUsersTask.yml
-
 - name: Deploying ssh keys
   include_tasks: ssh_keys.yml
