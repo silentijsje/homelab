@@ -33,6 +33,7 @@ admins_folders_group: admins
 
 appdata_path: /mnt/docker
 container_media_path: /mnt/media
+proxy_path: /mnt/proxy
 services_path: "/mnt/docker"
 file_path: "homeserver"
 sabnzbd_incomplete_downloads_path: "/mnt/incomplete"
