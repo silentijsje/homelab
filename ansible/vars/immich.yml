@@ -1,8 +1,7 @@
 ---
 # all non secret vars
-appdata_path: /mnt/docker/prod-media01
+appdata_path: /mnt/docker/prod-video01
 container_media_path: /mnt/media
-proxy_path: /mnt/proxy
 services_path: "/mnt/ansible"
-file_path: "homeserver"
+file_path: "immich"
 sabnzbd_incomplete_downloads_path: "/mnt/incomplete"

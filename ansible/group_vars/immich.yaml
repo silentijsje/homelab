@@ -1,0 +1,51 @@
+---
+# ironicbadger.docker_compose_generator
+docker_compose_generator_output_path: "{{services_path}}"
+
+# global vars
+global_env_vars:
+  - "PUID={{ docker_compose_generator_uid }}"
+  - "PGID={{ docker_compose_generator_gid }}"
+  - "UMASK={{ docker_compose_generator_umask }}"
+  - "TZ={{ ntp_timezone }}"
+
+containers:
+###
+  - service_name: portainer
+    active: true
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9443:9443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "{{appdata_path}}/portainer_data:/data"
+    restart: always
+###
+  - service_name: watchtower
+    active: true
+    image: containrrr/watchtower:latest
+    environment:
+      - "WATCHTOWER_SCHEDULE=0 0 4 * * *"
+      # WATCHTOWER_RUN_ONCE: true
+      - "WATCHTOWER_DEBUG=false"
+      - "WATCHTOWER_CLEANUP=true"
+      - "WATCHTOWER_INCLUDE_RESTARTING=true"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: always
+    include_global_env_vars: true
+###
+  - service_name: jellyfin
+    image: jellyfin/jellyfin
+    active: true
+    include_global_env_vars: true
+    volumes:
+      - "/mnt/jellyfin/config:/config"
+      - "/mnt/jellyfin/cache:/cache"
+      - "{{ container_media_path }}:/data"
+      - "{{ appdata_path }}/jellyfin/transcode:/transcode"
+    restart: 'unless-stopped'
+    ports:
+      - 8096:8096
+    devices:
+      - /dev/dri:/dev/dri
