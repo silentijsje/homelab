@@ -79,9 +79,9 @@ containers:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "{{proxy_path}}/traefik/data/traefik.yml:/traefik.yml:ro"
-      - "{{proxy_path}}/traefik/data/acme.json:/acme.json"
-      - "{{proxy_path}}/traefik/configs/:/configs/:ro"
+      - "{{appdata_path}}/traefik/data/traefik.yml:/traefik.yml:ro"
+      - "{{appdata_path}}/traefik/data/acme.json:/acme.json"
+      - "{{appdata_path}}/traefik/configs/:/configs/:ro"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
@@ -103,7 +103,7 @@ containers:
     active: true
     image: authelia/authelia:latest
     volumes:
-      - "{{proxy_path}}/authelia/config/:/config/"
+      - "{{appdata_path}}/authelia/config/:/config/"
     environment:
       - "AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET={{AUTHELIA_JWT_SECRET}}"
       - "AUTHELIA_STORAGE_ENCRYPTION_KEY={{AUTHELIA_ENCRYPTION_KEY}}"
