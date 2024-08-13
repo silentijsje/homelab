@@ -42,13 +42,6 @@ containers:
     volumes:
       - "{{appdata_path}}/syncthing:/config"
       - "/mnt/syncthing:/data"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.syncthing.rule=Host(`syncthing.silentijsje.com`)"
-      - "traefik.http.routers.syncthing.entrypoints=https"
-      - "traefik.http.routers.syncthing.tls=true"
-      - "traefik.http.services.syncthing.loadbalancer.server.port=8384"
-      - "traefik.http.routers.syncthing.middlewares=authelia@docker"
     ports:
       - 8384:8384
       - 22000:22000/tcp
@@ -207,13 +200,6 @@ containers:
     volumes:
       - "{{ appdata_path }}/animarr:/config"
       - "{{ container_media_path }}:/data"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.animarr.rule=Host(`animarr.silentijsje.com`)"
-      - "traefik.http.routers.animarr.entrypoints=https"
-      - "traefik.http.routers.animarr.tls=true"
-      - "traefik.http.services.animarr.loadbalancer.server.port=8988"
-      - "traefik.http.routers.animarr.middlewares=authelia@docker"
     include_global_env_vars: true
     restart: unless-stopped
 ###

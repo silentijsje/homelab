@@ -1,0 +1,21 @@
+http:
+  routers:
+    syncthing:
+      rule: Host(`syncthing.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: syncthing
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    syncthing:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.4:8384

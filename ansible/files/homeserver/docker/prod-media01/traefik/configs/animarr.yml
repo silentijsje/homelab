@@ -1,0 +1,21 @@
+http:
+  routers:
+    animarr:
+      rule: Host(`animarr.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: animarr
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    animarr:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.4:8988
