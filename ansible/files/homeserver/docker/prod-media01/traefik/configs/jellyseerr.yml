@@ -1,0 +1,21 @@
+http:
+  routers:
+    jellyseerr:
+      rule: Host(`overseerr.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: jellyseerr
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    jellyseerr:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.4:5055

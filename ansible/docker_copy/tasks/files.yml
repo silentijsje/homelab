@@ -2,7 +2,7 @@
 - name: Delete content & directory
   ansible.builtin.file:
     state: absent
-    path: "{{proxy_path}}/traefik/configs"
+    path: "{{appdata_path}}/traefik/configs"
 
 - name: copy
   ansible.builtin.copy:

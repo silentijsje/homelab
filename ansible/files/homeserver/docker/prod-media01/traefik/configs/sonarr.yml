@@ -1,0 +1,21 @@
+http:
+  routers:
+    sonarr:
+      rule: Host(`sonarr.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: sonarr
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+
+  services:
+    sonarr:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.4:8989

@@ -27,13 +27,6 @@ containers:
     container_name: "homer"
     environment:
       - "INIT_ASSETS=1"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.homer.rule=Host(`homer.silentijsje.com`)"
-      - "traefik.http.routers.homer.entrypoints=https"
-      - "traefik.http.routers.homer.tls=true"
-      - "traefik.http.services.homer.loadbalancer.server.port=8080"
-      - "traefik.http.routers.homer.middlewares=authelia@docker"
     volumes:
       - "{{appdata_path}}/homer/site/:/www/assets"
     ports:
@@ -153,14 +146,7 @@ containers:
     volumes:
       - "{{ appdata_path }}/sabnzbd:/config"
       - "{{ container_media_path }}:/data"
-      - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete" #optional
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.silentijsje.com`)"
-      - "traefik.http.routers.sabnzbd.entrypoints=https"
-      - "traefik.http.routers.sabnzbd.tls=true"
-      - "traefik.http.services.sabnzbd.loadbalancer.server.port=8080"
-      - "traefik.http.routers.sabnzbd.middlewares=authelia@docker"
+      - "{{ sabnzbd_incomplete_downloads_path }}:/incomplete"
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -171,13 +157,6 @@ containers:
     include_global_env_vars: true
     volumes:
       - "{{ appdata_path }}/jellyseerr:/app/config"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jellyseerr.rule=Host(`overseerr.silentijsje.com`)"
-      - "traefik.http.routers.jellyseerr.entrypoints=https"
-      - "traefik.http.routers.jellyseerr.tls=true"
-      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
-      - "traefik.http.routers.jellyseerr.middlewares=authelia@docker"
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -200,14 +179,7 @@ containers:
     container_name: "radarr"
     volumes:
       - "{{ appdata_path }}/radarr:/config"
-      - "{{ container_media_path }}:/data"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.radarr.rule=Host(`radarr.silentijsje.com`)"
-      - "traefik.http.routers.radarr.entrypoints=https"
-      - "traefik.http.routers.radarr.tls=true"
-      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
-      - "traefik.http.routers.radarr.middlewares=authelia@docker"
+      - "{{ container_media_path }}/authelia/redis:/data"
     ports:
       - 7878:7878
     include_global_env_vars: true
@@ -220,13 +192,6 @@ containers:
     volumes:
       - "{{ appdata_path }}/sonarr:/config"
       - "{{ container_media_path }}:/data"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.sonarr.rule=Host(`sonarr.silentijsje.com`)"
-      - "traefik.http.routers.sonarr.entrypoints=https"
-      - "traefik.http.routers.sonarr.tls=true"
-      - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
-      - "traefik.http.routers.sonarr.middlewares=authelia@docker"
     ports:
       - 8989:8989
     include_global_env_vars: true

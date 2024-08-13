@@ -1,0 +1,20 @@
+http:
+  routers:
+    sabnzbd:
+      rule: Host(`sabnzbd.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: sabnzbd
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+
+  services:
+    sabnzbd:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.4:8080

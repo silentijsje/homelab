@@ -1,20 +1,21 @@
 http:
   routers:
-    immich:
-      rule: Host(`immich.silentijsje.com`)
+    radarr:
+      rule: Host(`radarr.silentijsje.com`)
       tls:
         certresolver:
           cloudflare
-      service: immich
+      service: radarr
       entryPoints:
         - https
       middlewares:
         - default-headers
         - https-redirectscheme
         - cloudflare-whitelist
+        - authelia
 
   services:
-    immich:
+    radarr:
       loadBalancer:
         servers:
-          - url: http://10.0.0.80:2283
+          - url: http://10.0.0.4:7878
