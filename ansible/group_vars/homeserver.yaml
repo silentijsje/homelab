@@ -172,7 +172,7 @@ containers:
     container_name: "radarr"
     volumes:
       - "{{ appdata_path }}/radarr:/config"
-      - "{{ container_media_path }}/authelia/redis:/data"
+      - "{{ container_media_path }}:/data"
     ports:
       - 7878:7878
     include_global_env_vars: true
