@@ -40,12 +40,28 @@ containers:
     active: true
     include_global_env_vars: true
     volumes:
-      - "/mnt/jellyfin/config:/config"
-      - "/mnt/jellyfin/cache:/cache"
-      - "{{ container_media_path }}:/data"
+      - "{{appdata_path}}/jellyfin/config:/config"
+      - "{{appdata_path}}/jellyfin/cache:/cache"
+      - "{{ container_media_path }}:/data:ro"
       - "{{ appdata_path }}/jellyfin/transcode:/transcode"
     restart: 'unless-stopped'
     ports:
       - 8096:8096
     devices:
       - /dev/dri:/dev/dri
+###
+  - service_name: plex
+    image: lscr.io/linuxserver/plex:latest
+    active: true
+    include_global_env_vars: true
+    network_mode: host
+    environment:
+      - "VERSION=docker"
+      - "PLEX_CLAIM=claim-XuZiyfMfXPH_49ec_gaC"
+    volumes:
+      - "{{appdata_path}}/plex/config:/config"
+      - "{{ container_media_path }}:/data:ro"
+      - "{{ appdata_path }}/plex/transcode:/transcode"
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
