@@ -7,10 +7,10 @@
   roles:
     # - role: bootstrap
     # - role: geerlingguy.docker
-    - role: docker_copy
-    - role: IronicBadger.docker_compose_generator
-    - role: docker_run
-    - role: traefik
+    # - role: docker_copy
+    # - role: IronicBadger.docker_compose_generator
+    # - role: docker_run
+    # - role: traefik
 
 - hosts: immich
   name: "Setting up the immich server"
@@ -21,6 +21,6 @@
   roles:
     # - role: bootstrap
     # - role: geerlingguy.docker
-    # - role: docker_copy
+    - role: deploy_immich
     - role: IronicBadger.docker_compose_generator
-    - role: docker_run
+    # - role: docker_run

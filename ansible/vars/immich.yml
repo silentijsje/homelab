@@ -3,5 +3,5 @@
 appdata_path: /mnt/docker/prod-video01
 container_media_path: /mnt/media
 services_path: "/mnt/ansible"
-file_path: "immich"
+file_path: "prod-video01"
 sabnzbd_incomplete_downloads_path: "/mnt/incomplete"

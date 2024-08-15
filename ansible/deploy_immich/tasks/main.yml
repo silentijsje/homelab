@@ -1,0 +1,5 @@
+- name: Copy docker compose files to target system
+  include_tasks: files.yml
+
+- name: run the docker compose file
+  include_tasks: docker_up.yml
