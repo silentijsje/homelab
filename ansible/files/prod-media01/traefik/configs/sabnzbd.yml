@@ -1,11 +1,11 @@
 http:
   routers:
-    immich:
-      rule: Host(`immich.silentijsje.com`)
+    sabnzbd:
+      rule: Host(`sabnzbd.silentijsje.com`)
       tls:
         certresolver:
           cloudflare
-      service: immich
+      service: sabnzbd
       entryPoints:
         - https
       middlewares:
@@ -15,7 +15,7 @@ http:
         - authelia
 
   services:
-    immich:
+    sabnzbd:
       loadBalancer:
         servers:
-          - url: http://10.0.0.80:2283
+          - url: http://10.0.0.4:8080
