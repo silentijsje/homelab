@@ -12,3 +12,8 @@
     group: family
     mode: '600'
     state: touch
+
+- name: Delete content & directory
+  ansible.builtin.file:
+    state: absent
+    path: "{{appdata_path}}/traefik/configs"

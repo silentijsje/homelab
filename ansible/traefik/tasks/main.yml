@@ -1,2 +1,0 @@
-- name: Restart traefik
-  include_tasks: traefik_restart.yml

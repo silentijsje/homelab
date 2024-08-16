@@ -1,2 +1,0 @@
-- name: run the docker compose file
-  include_tasks: docker_up.yml
