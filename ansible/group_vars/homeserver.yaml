@@ -215,3 +215,9 @@ containers:
     include_global_env_vars: true
     restart: unless-stopped
 ###
+volumes:
+  bazarr:
+    driver_opts:
+      type: 
+      o: "username={{smb_username}},password={{smb_password}}"
+      device: "//10.0.0.3/docker/bazarr"
