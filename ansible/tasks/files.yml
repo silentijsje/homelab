@@ -6,3 +6,11 @@
     owner: stanley
     group: docker
     mode: '770'
+
+- name: copy scripts
+  ansible.builtin.copy:
+    src: "../../scripts/"
+    dest: "/mnt/scripts/"
+    owner: stanley
+    group: docker
+    mode: '770'

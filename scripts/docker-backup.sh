@@ -22,9 +22,12 @@ function update {
     docker compose -f "$COMPOSE_LOC" down
 
     echo "Starting backup"
-    mkdir -p "$BACKUP_LOC/$hostname/$archive"
+    mkdir -p "$BACKUP_LOC/$hostname/$archive" "$BACKUP_LOC/$hostname/latest"
     cp -a "$COMPOSE_LOC" $BACKUP_LOC/$hostname/$archive/docker-compose.yml.bak
     sudo tar -czf $BACKUP_LOC/$hostname/$archive/appdatabackup.tar.gz $APPDATA_LOC
+
+    cp -a "$COMPOSE_LOC" $BACKUP_LOC/$hostname/$archive/docker-compose.yml.bak
+    sudo tar -czf $BACKUP_LOC/$hostname/latest/appdatabackup.tar.gz $APPDATA_LOC
 
     docker compose -f "$COMPOSE_LOC" up -d
     sudo chown "${USER}":"${USER}" -R $BACKUP_LOC/$hostname/$archive/appdatabackup.tar.gz
@@ -39,8 +42,10 @@ function restore {
     randstr=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-8};echo;)
     sudo mv "$APPDATA_LOC" "${APPDATA_LOC}.$randstr"
     sudo cp -a "$COMPOSE_LOC" "${COMPOSE_LOC}.$randstr"
-    mkdir -p "$APPDATA_LOC"
-    sudo tar xvf $BACKUP_LOC/$hostname/$archive/appdatabackup.tar.gz $APPDATA_LOC
+    sudo mkdir -p "$APPDATA_LOC"
+    sudo tar -xvf $BACKUP_LOC/$hostname/latest/appdatabackup.tar.gz $APPDATA_LOC
+    sudo chown "${USER}":"${USER}" -R "$APPDATA_LOC"
+    sudo chmod 770 -R "$APPDATA_LOC"
     docker compose -f "$COMPOSE_LOC" pull
     docker compose -f "$COMPOSE_LOC" up -d
 }
