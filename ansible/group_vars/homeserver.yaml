@@ -118,20 +118,6 @@ containers:
       - 6379
     restart: unless-stopped
 ###
-  - service_name: watchtower
-    active: true
-    image: containrrr/watchtower:latest
-    environment:
-      - "WATCHTOWER_SCHEDULE=0 0 4 * * *"
-      # WATCHTOWER_RUN_ONCE: true
-      - "WATCHTOWER_DEBUG=false"
-      - "WATCHTOWER_CLEANUP=true"
-      - "WATCHTOWER_INCLUDE_RESTARTING=true"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    restart: always
-    include_global_env_vars: true
-###
   - service_name: sabnzbd
     active: true
     image: lscr.io/linuxserver/sabnzbd:latest

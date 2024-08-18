@@ -1,16 +1,8 @@
 ---
-- name: copy
+- name: copy data
   ansible.builtin.copy:
     src: "../files/{{ file_path }}/"
     dest: "/mnt/docker/{{ file_path }}/"
-    owner: stanley
-    group: docker
-    mode: '770'
-
-- name: copy scripts
-  ansible.builtin.copy:
-    src: "../../scripts/"
-    dest: "/mnt/scripts/"
     owner: stanley
     group: docker
     mode: '770'
