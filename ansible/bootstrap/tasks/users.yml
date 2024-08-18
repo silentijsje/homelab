@@ -1,0 +1,17 @@
+---
+- name: Ensure usergroups exist
+  group:
+    name: "{{item}}"
+    state: present
+  with_items:
+    "{{usergroups}}"
+
+- name: Create users
+  user:
+    name: "{{item.name}}"
+    groups: "{{item.groups}}"
+    append: yes
+    password: "{{item.password}}"
+    shell: /bin/bash
+  with_items:
+    "{{users}}"

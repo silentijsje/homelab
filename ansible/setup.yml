@@ -1,20 +1,20 @@
-- hosts: homeserver
-  name: "Setting up the home server"
-  become: yes
-  vars_files:
-  - vars/vault.yml
-  - vars/homeserver.yml
-  roles:
-    - role: bootstrap
-    - role: geerlingguy.docker
-    - role: IronicBadger.docker_compose_generator
-  tasks:
-  - import_tasks: tasks/update_os.yml
-  - import_tasks: tasks/traefik_acme.yml
-  - import_tasks: tasks/files.yml
-  - import_tasks: tasks/backup_scripts.yml
-  - import_tasks: tasks/docker_up.yml
-  - import_tasks: tasks/traefik_restart.yml
+# - hosts: homeserver
+#   name: "Setting up the home server"
+#   become: yes
+#   vars_files:
+#   - vars/vault.yml
+#   - vars/homeserver.yml
+#   roles:
+#     - role: bootstrap
+#     - role: geerlingguy.docker
+#     - role: IronicBadger.docker_compose_generator
+#   tasks:
+#   - import_tasks: tasks/update_os.yml
+#   - import_tasks: tasks/traefik_acme.yml
+#   - import_tasks: tasks/files.yml
+#   - import_tasks: tasks/backup_scripts.yml
+#   - import_tasks: tasks/docker_up.yml
+#   - import_tasks: tasks/traefik_restart.yml
 
 - hosts: immich
   name: "Setting up the immich server"
@@ -24,10 +24,9 @@
   - vars/immich.yml
   roles:
     - role: bootstrap
-    - role: geerlingguy.docker
     - role: IronicBadger.docker_compose_generator
   tasks:
-  - import_tasks: tasks/update_os.yml
+  # - import_tasks: tasks/update_os.yml
   - import_tasks: tasks/files.yml
   - import_tasks: tasks/backup_scripts.yml
   - import_tasks: tasks/docker_up.yml

@@ -4,6 +4,9 @@
 - name: Updating timezone
   include_tasks: timezone.yml
 
+- name: Deploying ssh keys
+  include_tasks: users.yml
+
 - name: Hardening sshd
   include_tasks: sshd.yml
 

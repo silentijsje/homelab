@@ -19,3 +19,10 @@ ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519 -C stanley-PC-WSL -q
 
 qm set 330 -scsi1 /dev/disk/by-id/ata-INTEL_SSDSC2KB019T8_PHYF911400AC1P9DGN
 qm set 330 -scsi2 /dev/disk/by-id/ata-INTEL_SSDSC2KB019T8_PHYF911503RL1P9DGN
+
+ In your ~/.ssh/config (if this file doesn't exist, just create it):
+Host *
+    StrictHostKeyChecking no
+
+sudo visudo
+username ALL = NOPASSWD : ALL

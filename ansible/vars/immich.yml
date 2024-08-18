@@ -1,7 +1,14 @@
 ---
 # all non secret vars
+users:
+  - {name: "stanley", groups: "stanley, admins, family, docker, sudo", password: "$6$2fbOo.aG9Ij/H1IN$YgUHcEnKgsRNyO6KplOYD0OfRZExFcCllMWBvnq2Jp1HjVG8aFdJJSY/HL9jdiXLfCToLq4QN4jkSZ3WRM/PA."}
+
+usergroups:
+  - stanley
+  - admins
+  - family
+
 appdata_path: /mnt/docker/prod-video01
 container_media_path: /mnt/media
 services_path: "/mnt/ansible"
 file_path: "prod-video01"
-sabnzbd_incomplete_downloads_path: "/mnt/incomplete"
