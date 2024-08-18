@@ -1,8 +1,5 @@
 ---
 # all non secret vars
-users:
-  - {name: "stanley", groups: "stanley, docker", Password: "$6$2fbOo.aG9Ij/H1IN$YgUHcEnKgsRNyO6KplOYD0OfRZExFcCllMWBvnq2Jp1HjVG8aFdJJSY/HL9jdiXLfCToLq4QN4jkSZ3WRM/PA."}
-
 file_path: "prod-media01"
 appdata_path: /mnt/docker/prod-media01
 container_media_path: /mnt/media
