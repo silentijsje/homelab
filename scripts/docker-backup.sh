@@ -10,13 +10,13 @@ archive="$(date '+%Y-%m-%d')"
 
 
 function update {
-  echo "Searching for yq"
-  if which yq; then
-    echo "yq found, continuing"
-  else
-    echo "Please install yq first"
-    exit 1
-  fi
+  # echo "Searching for yq"
+  # if which yq; then
+  #   echo "yq found, continuing"
+  # else
+  #   echo "Please install yq first"
+  #   exit 1
+  # fi
 
   sudo docker compose -f "$COMPOSE_LOC" pull
   docker compose -f "$COMPOSE_LOC" down
@@ -29,13 +29,23 @@ function update {
   sudo tar -C "$APPDATA_LOC"/.. -czf $BACKUP_LOC/$hostname/latest/appdatabackup.tar.gz "$APPDATA_NAME"
   cp -a $BACKUP_LOC/$hostname/latest/* $BACKUP_LOC/$hostname/$archive/
 
-  # cp -a "$COMPOSE_LOC" $BACKUP_LOC/$hostname/$archive/docker-compose.yml.bak
-  # sudo tar -C "$APPDATA_LOC"/.. -czf $BACKUP_LOC/$hostname/$archive/appdatabackup.tar.gz "$APPDATA_NAME"
-
   docker compose -f "$COMPOSE_LOC" up -d
   sudo chown "${USER}":"${USER}" -R $BACKUP_LOC/$hostname/
 
   docker image prune -f
+  cleanup_old_backups
+}
+
+function cleanup_old_backups {
+  echo "Cleaning up old backups"
+  backup_dirs=($(ls -dt $BACKUP_LOC/$hostname/*/ | grep -v "latest"))
+  if [ ${#backup_dirs[@]} -gt 10 ]; then
+    dirs_to_delete=(${backup_dirs[@]:10})
+    for dir in "${dirs_to_delete[@]}"; do
+      echo "Deleting old backup: $dir"
+      rm -rf "$dir"
+    done
+  fi
 }
 
 function restore {
