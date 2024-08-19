@@ -10,14 +10,6 @@ archive="$(date '+%Y-%m-%d')"
 
 
 function update {
-  # echo "Searching for yq"
-  # if which yq; then
-  #   echo "yq found, continuing"
-  # else
-  #   echo "Please install yq first"
-  #   exit 1
-  # fi
-
   sudo docker compose -f "$COMPOSE_LOC" pull
   docker compose -f "$COMPOSE_LOC" down
 
@@ -66,6 +58,6 @@ function restore {
 if declare -f "$1" > /dev/null; then
   "$@"
 else
-  echo "The only valid arguments are update, restore, and resume"
+  echo "The only valid arguments are update, restore"
   exit 1
 fi
