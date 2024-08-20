@@ -1,3 +1,12 @@
+# - hosts: bootstrap
+#   name: "bootstrap the servers"
+#   become: yes
+#   vars_files:
+#   - vars/vault.yml
+#   - vars/users.yml
+#   roles:
+#     - role: bootstrap
+
 # - hosts: homeserver
 #   name: "Setting up the home server"
 #   become: yes
@@ -17,6 +26,22 @@
 #   - import_tasks: tasks/docker_up.yml
 #   - import_tasks: tasks/traefik_restart.yml
 
+# - hosts: streaming
+#   name: "Setting up the streaming server"
+#   become: yes
+#   vars_files:
+#   - vars/vault.yml
+#   - vars/immich.yml
+#   - vars/users.yml
+#   roles:
+#     - role: bootstrap
+#     - role: IronicBadger.docker_compose_generator
+#   tasks:
+#   - import_tasks: tasks/update_os.yml
+#   - import_tasks: tasks/files.yml
+#   - import_tasks: tasks/backup_scripts.yml
+#   - import_tasks: tasks/docker_up.yml
+
 - hosts: immich
   name: "Setting up the immich server"
   become: yes
@@ -26,10 +51,8 @@
   - vars/users.yml
   roles:
     - role: bootstrap
-    - role: IronicBadger.docker_compose_generator
   tasks:
   - import_tasks: tasks/update_os.yml
   - import_tasks: tasks/files.yml
   - import_tasks: tasks/backup_scripts.yml
-  - import_tasks: tasks/docker_up.yml
   - import_tasks: tasks/docker_immich_up.yml
