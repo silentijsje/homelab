@@ -1,0 +1,21 @@
+---
+# ironicbadger.docker_compose_generator
+docker_compose_generator_output_path: "{{services_path}}"
+
+# global vars
+global_env_vars:
+  - "PUID={{ docker_compose_generator_uid }}"
+  - "PGID={{ docker_compose_generator_gid }}"
+  - "UMASK={{ docker_compose_generator_umask }}"
+  - "TZ={{ ntp_timezone }}"
+
+containers:
+###
+  - service_name: handbrake
+    active: true
+    image: jlesage/handbrake
+    ports:
+      - "5800:5800"
+    volumes:
+      - "/docker/handbrake/appdata/handbrake:/config:rw"
+      - "/home/user:/storage:ro"
