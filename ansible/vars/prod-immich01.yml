@@ -1,0 +1,6 @@
+---
+# all non secret vars
+appdata_path: /mnt/docker/prod-immich01
+container_media_path: /mnt/media
+services_path: "/mnt/ansible"
+file_path: "prod-immich01"

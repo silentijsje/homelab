@@ -1,18 +1,18 @@
-- hosts: bootstrap
-  name: "bootstrap the servers"
-  become: yes
-  vars_files:
-  - vars/vault.yml
-  - vars/users.yml
-  roles:
-    - role: bootstrap
+# - hosts: bootstrap
+#   name: "bootstrap the servers"
+#   become: yes
+#   vars_files:
+#   - vars/vault.yml
+#   - vars/users.yml
+#   roles:
+#     - role: bootstrap
 
 - hosts: homeserver
   name: "Setting up the home server"
   become: yes
   vars_files:
   - vars/vault.yml
-  - vars/homeserver.yml
+  - vars/prod-media01.yml
   - vars/users.yml
   roles:
     - role: bootstrap
@@ -31,7 +31,7 @@
   become: yes
   vars_files:
   - vars/vault.yml
-  - vars/immich.yml
+  - vars/prod-video01.yml
   - vars/users.yml
   roles:
     - role: bootstrap
@@ -47,7 +47,7 @@
   become: yes
   vars_files:
   - vars/vault.yml
-  - vars/immich.yml
+  - vars/prod-immich01.yml
   - vars/users.yml
   roles:
     - role: bootstrap
@@ -56,3 +56,17 @@
   - import_tasks: tasks/files.yml
   - import_tasks: tasks/backup_scripts.yml
   - import_tasks: tasks/docker_immich_up.yml
+
+- hosts: "transcode"
+  name: "Setting up the transcode server"
+  become: yes
+  vars_files:
+  - vars/vault.yml
+  - vars/prod-transcode01.yml
+  - vars/users.yml
+  roles:
+    - role: bootstrap
+  tasks:
+  - import_tasks: tasks/update_os.yml
+  - import_tasks: tasks/files.yml
+  - import_tasks: tasks/backup_scripts.yml
