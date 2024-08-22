@@ -66,6 +66,7 @@
   - vars/users.yml
   roles:
     - role: bootstrap
+    - role: IronicBadger.docker_compose_generator
   tasks:
   - import_tasks: tasks/update_os.yml
   - import_tasks: tasks/files.yml
