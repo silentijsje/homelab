@@ -71,3 +71,4 @@
   - import_tasks: tasks/update_os.yml
   - import_tasks: tasks/files.yml
   - import_tasks: tasks/backup_scripts.yml
+  - import_tasks: tasks/docker_up.yml
