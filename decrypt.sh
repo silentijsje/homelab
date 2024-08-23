@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VAULT_FILE=./ansible/vars/vault.yml
-IMMICH_ENV_FILE=./ansible/files/prod-video01/immich/env
+IMMICH_ENV_FILE=./ansible/files/prod-immich01/immich/env
 VAULT_PASSWORD_FILE=./ansible/.vault_pass
 
 # Decrypt the Ansible Vault file
