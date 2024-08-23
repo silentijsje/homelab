@@ -116,7 +116,7 @@ access_control:
         - "homer.silentijsje.com"
         - "jellyfin.silentijsje.com"
       policy: bypass
-    ## one factor login - catch all 
+    ## two factor login - catch all 
     - domain: '*.silentijsje.com'
       subject: 
         - "group:admins"

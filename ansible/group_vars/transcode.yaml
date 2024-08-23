@@ -14,11 +14,39 @@ containers:
   - service_name: handbrake
     active: true
     image: jlesage/handbrake
+    include_global_env_vars: true
     ports:
       - "5800:5800"
     volumes:
       - "/docker/handbrake/appdata/handbrake:/config:rw"
       - "{{ container_media_path }}:/storage"
+      - /mnt/transcode/handbrake:/transcode
     devices:
       - /dev/dri:/dev/dri
     restart: unless-stopped
+###
+  - service_name: tdarr
+    active: true
+    image: ghcr.io/haveagitgat/tdarr:latest
+    restart: unless-stopped
+    # network_mode: bridge
+    ports:
+      - 8265:8265 # webUI port
+      - 8266:8266 # server port
+    include_global_env_vars: true
+    environment:
+      - serverIP=10.0.0.82
+      - serverPort=8266
+      - webUIPort=8265
+      - internalNode=true
+      - inContainer=true
+      - ffmpegVersion=6
+      - nodeName=prod-transcode01
+    volumes:
+      - "{{appdata_path}}/tdarr/server:/app/server"
+      - "{{appdata_path}}/tdarr/configs:/app/configs"
+      - "{{appdata_path}}/tdarr/logs:/app/logs"
+      - "{{ container_media_path }}:/storage"
+      - /mnt/transcode/tdarr:/transcode
+    devices:
+      - /dev/dri:/dev/dri

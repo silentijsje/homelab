@@ -1,0 +1,20 @@
+http:
+  routers:
+    tdarr:
+      rule: Host(`tdarr.silentijsje.com`)
+      tls:
+        certresolver:
+          cloudflare
+      service: tdarr
+      entryPoints:
+        - https
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - cloudflare-whitelist
+        - authelia
+  services:
+    tdarr:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.82:8265
