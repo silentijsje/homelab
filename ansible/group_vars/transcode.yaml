@@ -19,3 +19,6 @@ containers:
     volumes:
       - "/docker/handbrake/appdata/handbrake:/config:rw"
       - "{{ container_media_path }}:/storage"
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
