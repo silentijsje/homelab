@@ -14,4 +14,4 @@
     weekday: "SUN"
     minute: "0"
     hour: "5"
-    job: "./mnt/scripts/docker-backup.sh update"
+    job: "sh /mnt/scripts/docker-backup.sh update"
