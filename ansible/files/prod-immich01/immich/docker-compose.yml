@@ -29,6 +29,26 @@ services:
     healthcheck:
       disable: false
 
+services:
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:release-cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+    volumes:
+      - "D:/Stanley/Documents/immich_windows/cache:/cache"
+    ports:
+      - 3003:3003
+    restart: always
+
   redis:
     container_name: immich_redis
     image: docker.io/redis:6.2-alpine@sha256:e3b17ba9479deec4b7d1eeec1548a253acc5374d68d3b27937fcfe4df8d18c7e
