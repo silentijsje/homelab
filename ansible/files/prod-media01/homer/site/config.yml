@@ -67,8 +67,8 @@ services:
   - name: "Local services"
     icon: "fas fa-cloud"
     items:
-      - name: "PFsense"
-        logo: "assets/icons/png/pfsense.png"
+      - name: "OPNsense"
+        logo: "assets/icons/png/opnsense.png"
         subtitle: "Firewall"
         url: "https://10.0.0.1"
       - name: "Unifi"
@@ -102,6 +102,10 @@ services:
   - name: "Media"
     icon: "fas fa-cloud"
     items:
+      - name: "Immich"
+        logo: "assets/icons/png/immich.png"
+        subtitle: "Photo server"
+        url: "https://immich.silentijsje.com"
       - name: "Plex"
         logo: "assets/icons/png/plex.png"
         subtitle: "Media server"
