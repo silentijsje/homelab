@@ -201,6 +201,20 @@ containers:
     include_global_env_vars: true
     restart: unless-stopped
 ###
+  - service_name: plex
+    image: lscr.io/linuxserver/plex:latest
+    active: true
+    include_global_env_vars: true
+    network_mode: host
+    environment:
+      - "VERSION=docker"
+      - "PLEX_CLAIM=claim-XuZiyfMfXPH_49ec_gaC"
+    volumes:
+      - "{{appdata_path}}/plex/config:/config"
+      - "{{ container_media_path }}:/data:ro"
+      - "{{ appdata_path }}/plex/transcode:/transcode"
+    restart: unless-stopped
+###
 volumes:
   bazarr:
     driver_opts:
