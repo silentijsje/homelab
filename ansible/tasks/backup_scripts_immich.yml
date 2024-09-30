@@ -1,0 +1,17 @@
+---
+- name: copy scripts
+  ansible.builtin.copy:
+    src: "../../scripts/"
+    dest: "/mnt/scripts/"
+    owner: stanley
+    group: docker
+    mode: '770'
+
+- name: Create a cronjob to run the backup script every Sunday at 5am
+  ansible.builtin.cron:
+    name: "Run docker backup script every Sunday at 5am"
+    user: "stanley"
+    weekday: "SUN"
+    minute: "0"
+    hour: "5"
+    job: "sh /mnt/scripts/docker-backup_immich.sh update"
