@@ -2,6 +2,7 @@
 
 APPDATA_LOC="/mnt/docker"
 BACKUP_LOC="/mnt/backup/docker"
+COMPOSE_LOC="/mnt/docker/prod-immich01/immich/docker-compose.yml"
 
 date=$(date -I)
 hostname=$(hostname -s)
@@ -16,6 +17,7 @@ function update {
   APPDATA_NAME=$(echo "$APPDATA_LOC" | awk -F/ '{print $NF}')
   mkdir -p "$BACKUP_LOC/$hostname/$archive" "$BACKUP_LOC/$hostname/latest"
 
+  cp -a "$COMPOSE_LOC" $BACKUP_LOC/$hostname/latest/docker-compose.yml.bak
   sudo tar -C "$APPDATA_LOC"/.. -czf $BACKUP_LOC/$hostname/latest/appdatabackup.tar.gz "$APPDATA_NAME"
   cp -a $BACKUP_LOC/$hostname/latest/* $BACKUP_LOC/$hostname/$archive/
 
