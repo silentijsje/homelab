@@ -18,7 +18,7 @@ services:
     volumes:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/personal-photos:/mnt/personal-photos:ro #external library
+      - /mnt/personal-photos:/mnt/personal-photos #external library
     env_file:
       - .env
     ports:
