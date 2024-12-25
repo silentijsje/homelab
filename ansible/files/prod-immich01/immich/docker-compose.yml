@@ -40,6 +40,8 @@ services:
       service: openvino # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
       - model-cache:/cache
+    ports:
+      - 3003:3003
     restart: always
     healthcheck:
       disable: false
